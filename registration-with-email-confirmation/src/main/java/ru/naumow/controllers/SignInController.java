@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.naumow.dto.UserDto;
-import ru.naumow.form.SignInDto;
+import ru.naumow.dto.AuthDto;
 import ru.naumow.services.SignInService;
 
 import javax.servlet.http.HttpSession;
@@ -22,16 +22,16 @@ public class SignInController {
     @GetMapping
     public ModelAndView getSignInView() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("signIn");
+        modelAndView.setViewName("ftl/signIn");
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView signIn(HttpSession session, SignInDto signInDto) {
-        UserDto userDto = signInService.signIn(signInDto);
+    public ModelAndView signIn(HttpSession session, AuthDto authDto) {
+        UserDto userDto = signInService.signIn(authDto);
         session.setAttribute("user-email", userDto.getEmail());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/test");
+        modelAndView.setViewName("ftl/test");
         return modelAndView;
     }
 

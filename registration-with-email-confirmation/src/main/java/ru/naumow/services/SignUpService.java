@@ -1,9 +1,9 @@
 package ru.naumow.services;
 
-import ru.naumow.form.RegForm;
+import ru.naumow.dto.RegDto;
 
 public interface SignUpService {
 
-    void signUp(RegForm form);
+    void signUp(RegDto form);
 
 }

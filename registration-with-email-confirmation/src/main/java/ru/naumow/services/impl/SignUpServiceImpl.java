@@ -1,4 +1,4 @@
-package ru.naumow.services;
+package ru.naumow.services.impl;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.naumow.components.mail.MailComponent;
-import ru.naumow.form.RegForm;
+import ru.naumow.dto.RegDto;
 import ru.naumow.model.User;
 import ru.naumow.model.UserStatus;
 import ru.naumow.repositories.UserRepository;
+import ru.naumow.services.SignUpService;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -40,7 +41,7 @@ public class SignUpServiceImpl implements SignUpService {
     private Template mailTemplate;
 
     @Override
-    public void signUp(RegForm form) {
+    public void signUp(RegDto form) {
         String email = form.getEmail();
         String password = form.getPassword();
 

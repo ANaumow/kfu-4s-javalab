@@ -1,6 +1,7 @@
-package ru.naumow.services;
+package ru.naumow.services.impl;
 
 import ru.naumow.model.User;
+import ru.naumow.services.SessionService;
 
 public class SessionServiceImpl implements SessionService {
 

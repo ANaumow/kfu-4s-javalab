@@ -1,4 +1,4 @@
-package ru.naumow.services;
+package ru.naumow.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import ru.naumow.model.FileInfo;
 import ru.naumow.repositories.FileInfoRepository;
+import ru.naumow.services.FileInfoService;
 
 import java.io.File;
 import java.io.IOException;

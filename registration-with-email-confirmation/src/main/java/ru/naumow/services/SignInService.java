@@ -1,10 +1,10 @@
 package ru.naumow.services;
 
 import ru.naumow.dto.UserDto;
-import ru.naumow.form.SignInDto;
+import ru.naumow.dto.AuthDto;
 
 public interface SignInService {
 
-    UserDto signIn(SignInDto signInDto);
+    UserDto signIn(AuthDto authDto);
 
 }

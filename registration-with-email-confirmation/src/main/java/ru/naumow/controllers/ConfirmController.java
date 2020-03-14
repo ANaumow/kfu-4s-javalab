@@ -21,9 +21,9 @@ public class ConfirmController {
         try {
             confirmService.confirm(confirmId);
         } catch (IllegalArgumentException e) {
-            return new ModelAndView("confirm_deny");
+            return new ModelAndView("html/confirm_deny");
         }
-        return new ModelAndView("confirm_allow");
+        return new ModelAndView("html/confirm_allow");
     }
 
 }

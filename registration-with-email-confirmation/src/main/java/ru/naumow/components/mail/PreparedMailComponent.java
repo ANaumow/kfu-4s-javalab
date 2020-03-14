@@ -1,22 +1,16 @@
 package ru.naumow.components.mail;
 
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import ru.naumow.Sender;
 import ru.naumow.config.AppConfig;
-import ru.naumow.model.User;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.activation.URLDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.File;
 import java.util.Properties;
 
 @Setter
@@ -128,7 +122,7 @@ public class PreparedMailComponent implements MailComponent {
                 FileDataSource fileDataSource = new FileDataSource(file)*/
 
                 DataSource fds = new URLDataSource(AppConfig.class.getClassLoader()
-                        .getResource("../pinguin.jpg"));
+                        .getResource("../img/pinguin.jpg"));
 
                 messageBodyPart.setDataHandler(new DataHandler(fds));
                 messageBodyPart.setHeader("Content-ID", "<image>");

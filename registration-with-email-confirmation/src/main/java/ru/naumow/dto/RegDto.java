@@ -1,9 +1,9 @@
-package ru.naumow.form;
+package ru.naumow.dto;
 
 import lombok.Data;
 
 @Data
-public class SignInDto {
+public class RegDto {
     private String email;
     private String password;
 }

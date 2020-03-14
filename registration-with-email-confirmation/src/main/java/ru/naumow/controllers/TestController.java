@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class TestController {
@@ -23,7 +20,7 @@ public class TestController {
         StringWriter mailOut = new StringWriter();*/
 
         //modelAndView.addObject("confirm_id", "hi");
-        modelAndView.setViewName("test");
+        modelAndView.setViewName("ftl/test");
         //modelAndView.addObject("asd", session.getAttribute("user-email"));
         return modelAndView;
     }

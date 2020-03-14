@@ -1,4 +1,4 @@
-package ru.naumow.repositories;
+package ru.naumow.repositories.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ru.naumow.model.FileInfo;
+import ru.naumow.repositories.FileInfoRepository;
 
 import java.sql.PreparedStatement;
 import java.util.List;

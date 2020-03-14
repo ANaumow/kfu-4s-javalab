@@ -32,13 +32,13 @@ public class FilesController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("file_url", fileInfo.getStorageFileName());
-        modelAndView.setViewName("file_uploaded");
+        modelAndView.setViewName("ftl/file_uploaded");
         return modelAndView;
     }
 
     @RequestMapping(value = "/files", method = RequestMethod.GET)
     public ModelAndView uploadFile() {
-        return new ModelAndView("file_upload");
+        return new ModelAndView("html/file_upload");
     }
 
     @GetMapping("/files/{filename:.+}")

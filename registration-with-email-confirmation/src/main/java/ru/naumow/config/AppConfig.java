@@ -116,7 +116,7 @@ public class AppConfig {
     @Bean
     public Template mailForConfirmationTemplate() {
         try {
-            return freemarkerConfiguration().getTemplate("WEB-INF/confirm_mail.ftl");
+            return freemarkerConfiguration().getTemplate("WEB-INF/ftl/confirm_mail.ftl");
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -125,7 +125,7 @@ public class AppConfig {
     @Bean
     public Template mailForNotificationTemplate() {
         try {
-            return freemarkerConfiguration().getTemplate("WEB-INF/notification_mail.ftl");
+            return freemarkerConfiguration().getTemplate("WEB-INF/ftl/notification_mail.ftl");
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
