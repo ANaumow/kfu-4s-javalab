@@ -31,7 +31,6 @@ public class PersistenceJpaConfig {
         vendorAdapter.setGenerateDdl(Boolean.TRUE);
         vendorAdapter.setShowSql(Boolean.FALSE);
 
-
         final LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("ru.naumow.entity");
