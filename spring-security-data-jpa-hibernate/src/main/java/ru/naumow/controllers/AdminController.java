@@ -15,8 +15,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping()
     public ModelAndView getInfo() {
-        System.out.println("asssss");
-        log.debug("Tried to request get mapping 'hi'");
+        System.out.println("admins only");
         return null;
     }
 
