@@ -19,6 +19,6 @@ public class SingInController {
             String alias = ((UserDetailsImpl)authentication.getPrincipal()).getUser().getBlog().getAlias();
             return "redirect:" + alias;
         }
-        return "signIn";
+        return "/resources/html/sign_in";
     }
 }

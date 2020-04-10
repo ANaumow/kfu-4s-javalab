@@ -28,20 +28,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /*registry.addResourceHandler("/WEB-INF/html/**").addResourceLocations("/WEB-INF/html/");
-        registry.addResourceHandler("/WEB-INF/resources/**").addResourceLocations("/WEB-INF/resources/");*/
-        registry.addResourceHandler("/res/**")
-                .addResourceLocations("/res/");
-
         registry.addResourceHandler("/**")
                 .addResourceLocations("file:///C:/Soft/apache-tomcat-9.0.26/res/uploads/");
 
-        registry.addResourceHandler("/post/**")
-                .addResourceLocations("/res/editormd/")
-                .addResourceLocations("file:///C:/Soft/apache-tomcat-9.0.26/res/uploads/");
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
 
-        /*registry.addResourceHandler("/image/")
-                .addResourceLocations("/../../res/");*/
+        registry.addResourceHandler("/editor/**")
+                .addResourceLocations("/editor/");
     }
 
     @Bean
@@ -65,7 +59,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        ;
         viewResolver.setOrder(2);
         viewResolver.setPrefix("/");
         viewResolver.setSuffix(".jsp");
@@ -75,14 +68,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public InternalResourceViewResolver htmlViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        ;
         viewResolver.setOrder(1);
-        viewResolver.setPrefix("/res/html/");
+        viewResolver.setPrefix("/resources/html/");
         viewResolver.setSuffix(".html");
         return viewResolver;
     }
 
-    @Bean(name = "multipartResolver")
+    @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000);

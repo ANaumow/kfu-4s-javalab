@@ -15,7 +15,7 @@ public class ProfileController {
     @PreAuthorize("authentication.authenticated")
     @GetMapping
     public ModelAndView getProfilePage(@AuthenticationPrincipal(expression = "user") User user) {
-        ModelAndView modelAndView = new ModelAndView("res/html/profile");
+        ModelAndView modelAndView = new ModelAndView("/resources/html/profile");
         modelAndView.addObject(user);
         return modelAndView;
     }

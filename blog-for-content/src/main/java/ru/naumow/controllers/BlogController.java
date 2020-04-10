@@ -24,8 +24,10 @@ public class BlogController {
     @Autowired private PostService postService;
 
     @GetMapping
-    public ModelAndView get(@AuthenticationPrincipal(expression = "user") User user,
+    public ModelAndView get(
+            @AuthenticationPrincipal(expression = "user") User user,
             @PathVariable("blog-alias") String alias) {
+
         BlogDto blogDto;
         UserDto userDto;
 
@@ -34,11 +36,11 @@ public class BlogController {
         if (alias.equals(user.getBlog().getAlias())){
             userDto = UserDto.from(user);
             blogDto = BlogDto.from(user.getBlog());
-            modelAndView = new ModelAndView("/res/html/my_blog");
+            modelAndView = new ModelAndView("/resources/html/my_blog");
         } else {
             blogDto = blogService.getBlogByAlias(alias);
             userDto = blogService.getAuthor(blogDto);
-            modelAndView = new ModelAndView("/res/html/guest_blog");
+            modelAndView = new ModelAndView("/resources/html/guest_blog");
         }
 
         List<Post> postList = postService.getByBlogId(blogDto.getId());

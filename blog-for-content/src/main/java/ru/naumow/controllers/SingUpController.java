@@ -19,7 +19,7 @@ public class SingUpController {
 
     @GetMapping
     public ModelAndView getSignUp() {
-        return new ModelAndView("signUp");
+        return new ModelAndView("/resources/html/sign_up");
     }
 
     @PreAuthorize("permitAll()")
