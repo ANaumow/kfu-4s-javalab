@@ -46,10 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private BlogAliasHandler successHandler;
 
     @Autowired
-    @Qualifier("processor")
-    private ObjectPostProcessor<ProviderManager> testObjectPostProcessor;
-
-    @Autowired
     private DataSource dataSource;
 
     @Override
@@ -57,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*System.out.println("context " + servletContext);
         OpenEntityManagerInViewFilter filter = new OpenEntityManagerInViewFilter();
         filter.setServletContext(servletContext);*/
+        //super.configure(http);
 
 
 
@@ -67,8 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/sign-up")
                 .permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/api/**")
+                .permitAll()
+                /*.anyRequest()
+                .authenticated()*/
 
                 .and()
                 .formLogin()
@@ -78,7 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(successHandler)
                 .failureUrl("/sign-in?error")
                 .defaultSuccessUrl("/profile")
-                .withObjectPostProcessor(testObjectPostProcessor)
                 .permitAll()
 
 

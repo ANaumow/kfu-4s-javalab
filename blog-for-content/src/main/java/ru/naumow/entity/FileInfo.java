@@ -27,6 +27,7 @@ public class FileInfo {
 
     String contentType;
 
+    @Nullable
     Long size;
 
 }

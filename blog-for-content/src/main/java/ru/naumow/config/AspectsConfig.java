@@ -8,5 +8,4 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @ComponentScan("ru.naumow.aspects")
 public class AspectsConfig {
-
 }

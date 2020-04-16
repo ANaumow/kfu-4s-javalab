@@ -19,16 +19,14 @@ import ru.naumow.services.editor.EditorService;
 @Controller
 @RequestMapping("/editor")
 public class EditorController {
-    @Autowired private EditorService editorService;
-    @Autowired private UserSessionData userSessionData;
+    @Autowired private EditorService           editorService;
     @Autowired private StorageFilenameResolver storageFilenameResolver;
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping()
-    public ModelAndView get(@AuthenticationPrincipal(expression = "user") User user) {
-        userSessionData.setBlogAlias(user.getBlog().getAlias());
-        userSessionData.setUser(user);
-        ModelAndView modelAndView = new ModelAndView("resources/html/editormd");
+    @GetMapping
+    public ModelAndView get(@AuthenticationPrincipal(expression = "user") User user,
+            @RequestParam(value = "edit-post", required = false) String name) {
+        ModelAndView modelAndView = new ModelAndView("editor");
         modelAndView.addObject("blog_alias", user.getBlog().getAlias());
         return modelAndView;
     }
@@ -37,6 +35,7 @@ public class EditorController {
     @ResponseBody
     public ImageUploadResponse saveImage(@RequestParam("editormd-image-file") MultipartFile file) {
         try {
+            //TODO make using FileDto
             FileInfo fileInfo = editorService.processImageSaving(file);
             String sharedUrl = storageFilenameResolver.asPostResource(fileInfo.getStorageFilename());
             return ImageUploadResponse.Ok(sharedUrl);

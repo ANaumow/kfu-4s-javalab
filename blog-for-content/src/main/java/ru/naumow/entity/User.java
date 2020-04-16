@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -37,5 +38,7 @@ public class User {
 
     @OneToMany(mappedBy = "subId.user", fetch = FetchType.EAGER)
     private Set<Subscription> subs;
+
+    private LocalDateTime createdAt;
 
 }

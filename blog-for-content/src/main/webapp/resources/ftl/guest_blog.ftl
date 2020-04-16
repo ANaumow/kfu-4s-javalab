@@ -1,17 +1,35 @@
+<#import "macro_post.ftl" as macro_post>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/editor/css/editormd.preview.css"/>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Blog</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="stylesheet" href="/editor/css/editormd.preview.css"/>
+    <link rel="stylesheet" href="/resources/css/posts.min.css">
+    <#--    <link rel="stylesheet" href="./../post/examples/css/style.css"/>-->
+    <#--    <link rel="stylesheet" href="./../post/css/editormd.preview.css"/>-->
 
-    <title>Blog</title>
 </head>
 <body style="background-color: rgb(249,249,249);">
+
+<#--<script src="./../post/examples/js/jquery.min.js"></script>-->
+<#--<script src="./../post/lib/marked.min.js"></script>-->
+<#--<script src="./../post/lib/prettify.min.js"></script>-->
+
+<#--<script src="./../post/lib/raphael.min.js"></script>-->
+<#--<script src="./../post/lib/underscore.min.js"></script>-->
+<#--<script src="./../post/lib/sequence-diagram.min.js"></script>-->
+<#--<script src="./../post/lib/flowchart.min.js"></script>-->
+<#--<script src="./../post/lib/jquery.flowchart.min.js"></script>-->
+
+<#--<script src="./../post/editormd.js"></script>-->
 
 <script src="/editor/js/jquery.min.js"></script>
 <script src="/editor/lib/marked.min.js"></script>
@@ -64,55 +82,7 @@
     <div style="margin-top: 13px;">
         <div>
             <#list postList as post>
-                <div id="post-${post.id}" class="border rounded border-secondary" style="margin-top: 17px;background-color: #ffffff;">
-
-                    <script type="text/javascript">
-                        /*$(function () {
-                            editormd.defaults.markdown = "# Hi!";
-                            editormd.markdownToHTML("yourDivName");
-                            /!*$('#yourDivName').append('<p>hi</p>');*!/
-                        })*/
-
-                        $(function () {
-
-                            $.get('${post.content.url}', function (md) {
-                                editormd.urls.atLinkBase = "http://localhost:8080/";
-
-                                editormd.markdownToHTML("post-${post.id}", {
-                                    markdown: md,//"# HERE WE GO ",//+ "\r\n" + $("#append-test").text(),
-                                    //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
-                                    htmlDecode: "style,script,iframe",  // you can filter tags decode
-                                    //toc             : false,
-                                    tocm: true,    // Using [TOCM]
-                                    //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
-                                    //gfm             : false,
-                                    //tocDropdown     : true,
-                                    // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-                                    emoji: true,
-                                    taskList: true,
-                                    tex: true,  // 默认不解析
-                                    flowChart: true,  // 默认不解析
-                                    sequenceDiagram: true,  // 默认不解析
-                                });
-
-                                //console.log("返回一个 jQuery 实例 =>", testEditormdView);
-
-                                // 获取Markdown源码
-                                //console.log(testEditormdView.getMarkdown());
-
-                                //alert(testEditormdView.getMarkdown());
-                            });
-                        });
-                    </script>
-
-                    <#--<div style="padding: 9px;">
-                        <h3><strong>Звездная ночь</strong><br></h3>
-                    </div>
-                    <div style="max-width: 100%;max-height: 100%;min-height: 100%;min-width: 100%;height: 100%;width: 100%;"><img src="assets/img/IMG_148926-688x430.jpg" width="100%" height="100%"></div>
-                    <div style="padding: 9px;">
-                        <p style="margin: 0;"><strong>Ля какую картину написал</strong></p>
-                    </div>-->
-                </div>
+                <@macro_post.out post/>
             </#list>
         </div>
     </div>

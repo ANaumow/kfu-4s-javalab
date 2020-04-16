@@ -1,22 +1,16 @@
 package ru.naumow.services;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.naumow.dto.BlogDto;
 import ru.naumow.dto.UserDto;
-import ru.naumow.entity.User;
 import ru.naumow.repositories.BlogRepository;
 import ru.naumow.repositories.UsersRepository;
 
 @Service
 public class BlogServiceImpl implements BlogService {
-
-    @Autowired
-    public BlogRepository blogRepository;
-
-    @Autowired
-    public UsersRepository usersRepository;
+    @Autowired public BlogRepository  blogRepository;
+    @Autowired public UsersRepository usersRepository;
 
     @Override
     public UserDto getAuthor(BlogDto blogDto) {

@@ -15,11 +15,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @Embeddable
-public class SubscriptionId implements Serializable {
+public class UserPostId implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "blog_id")
-    private Blog blog;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

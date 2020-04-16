@@ -82,9 +82,7 @@ public class EditorServiceImpl implements EditorService {
     }
 
     private FileInfo processInputStreamSaving(
-            InputStream inputStream,
-            String path,
-            String filename) {
+            InputStream inputStream, String path, String filename) {
 
         SaveFileOrder order = SaveFileOrder.builder()
                 .filename(filename)

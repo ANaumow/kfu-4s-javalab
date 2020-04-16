@@ -19,11 +19,5 @@ import ru.naumow.model.UserSessionData;
         @PropertySource("classpath:blog.properties")
 })
 public class AppContext {
-
-    @Bean("processor")
-    @Primary
-    public ObjectPostProcessor<ProviderManager> postProcessor() {
-        return new TestObjectPostProcessor();
-    }
 }
 

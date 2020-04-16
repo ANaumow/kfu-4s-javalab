@@ -115,20 +115,20 @@
         </ul>-->
     </header>
     <div class="btns">
-        <#--<button id="goto-line-btn">Goto line 90</button>
+        <button id="goto-line-btn">Goto line 90</button>
         <button id="show-btn">Show editor</button>
         <button id="hide-btn">Hide editor</button>
         <button id="get-md-btn">Get Markdown</button>
-        <button id="get-html-btn">Get HTML</button>-->
+        <button id="get-html-btn">Get HTML</button>
         <button id="send-html">Submit post</button>
-        <#--<button id="watch-btn">Watch</button>
+        <button id="watch-btn">Watch</button>
         <button id="unwatch-btn">Unwatch</button>
         <button id="preview-btn">Preview HTML (Press Shift + ESC cancel)</button>
         <button id="fullscreen-btn">Fullscreen (Press ESC cancel)</button>
         <button id="show-toolbar-btn">Show toolbar</button>
         <button id="close-toolbar-btn">Hide toolbar</button>
         <button id="toc-menu-btn">ToC Dropdown menu</button>
-        <button id="toc-default-btn">ToC default</button>-->
+        <button id="toc-default-btn">ToC default</button>
     </div>
     <div id="test-editormd"></div>
 </div>
@@ -253,7 +253,7 @@
             testEditor.setPreviewTheme(theme);
         });
 
-        /*$("#goto-line-btn").bind("click", function () {
+        $("#goto-line-btn").bind("click", function () {
             testEditor.gotoLine(90);
         });
 
@@ -271,7 +271,7 @@
 
         $("#get-html-btn").bind('click', function () {
             alert(testEditor.getHTML());
-        });*/
+        });
 
         $("#send-html").bind('click', function () {
             alert("sending...");
@@ -292,7 +292,6 @@
                 alert('Error')
             });
         });
-/*
         $("#watch-btn").bind('click', function () {
             testEditor.watch();
         });
@@ -326,7 +325,7 @@
 
         $("#toc-default-btn").click(function () {
             testEditor.config("tocDropdown", false);
-        });*/
+        });
     });
 </script>
 </body>

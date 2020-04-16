@@ -13,13 +13,11 @@ import ru.naumow.services.SignUpService;
 @Controller
 @RequestMapping("sign-up")
 public class SingUpController {
-
-    @Autowired
-    private SignUpService signUpService;
+    @Autowired private SignUpService signUpService;
 
     @GetMapping
     public ModelAndView getSignUp() {
-        return new ModelAndView("/resources/html/sign_up");
+        return new ModelAndView("sign_up");
     }
 
     @PreAuthorize("permitAll()")

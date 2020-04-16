@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface PostService {
 
-    List<Post> getByBlogId(Long blogId);
+    List<Post> getAllByBlogId(Long blogId);
+
+    Post getById(Long id);
+
+    void waitForNew(Long id);
 
 }

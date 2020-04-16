@@ -15,15 +15,9 @@ import java.util.UUID;
 
 @Service
 public class SignUpServiceImpl implements SignUpService {
-
-    @Autowired
-    private UsersRepository usersRepository;
-
-    @Autowired
-    private BlogRepository blogRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired private UsersRepository usersRepository;
+    @Autowired private BlogRepository  blogRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Override
     public void signUp(SignUpDto form) {

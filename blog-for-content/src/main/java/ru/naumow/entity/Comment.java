@@ -7,30 +7,29 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "post")
-public class Post {
+@Table(name = "comment")
+public class Comment {
+
+    /*@EmbeddedId
+    private UserPostId id;*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Blog blog;
+    @OneToOne
+    private Post post;
 
     @OneToOne
-    private Content content;
+    private User user;
 
-    @OneToMany
-    private List<Comment> comments;
-
-    private Integer level;
+    private String text;
 
     private LocalDateTime cratedAt;
 

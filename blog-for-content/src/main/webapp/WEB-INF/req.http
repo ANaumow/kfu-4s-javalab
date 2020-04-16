@@ -1,0 +1,12 @@
+POST http://localhost:8080/comments?post_id=1
+Content-Type: application/x-www-form-urlencoded
+
+text=comment
+
+###
+GET http://localhost:8080/comments?post_id=1&wait
+
+###
+
+
+

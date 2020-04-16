@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +23,7 @@ public class Blog {
     private String title;
 
     private String alias;
+
+    private LocalDateTime cratedAt;
 
 }
