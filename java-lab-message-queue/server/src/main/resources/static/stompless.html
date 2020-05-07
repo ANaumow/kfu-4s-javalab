@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+</head>
+<body>
+<script>
+    var webSocket;
+    function connect() {
+        // webSocket = new WebSocket('ws://localhost:8080/chat');
+        webSocket = new SockJS("http://localhost:80/web-socket");
+        //document.cookie = 'ROOM=' + '${room.id}' + ';path=/';
+
+        webSocket.onmessage = function receiveMessage(response) {
+            console.log("new message-----")
+            console.log(response)
+            console.log("-----")
+        }
+        webSocket.onerror = function(e) {
+            alert("ошибка")
+        }
+        webSocket.onclose = function() {
+            alert("вы не зарегистрированы")
+        };
+    }
+
+    function send() {
+        let data = {
+            command: 'send',
+            queueName: 'documents_for_generate',
+            body: 'information'
+        }
+        sendMessage(JSON.stringify(data))
+    }
+
+    function subscribe() {
+        let data = {
+            command: 'subscribe',
+            queueName: 'documents_for_generate'
+        }
+        sendMessage(JSON.stringify(data))
+    }
+
+    function accepted() {
+        let data = {
+            command: 'accepted',
+            messageId: $("#message_id").val()
+        }
+        sendMessage(JSON.stringify(data))
+    }
+
+    function completed() {
+        let data = {
+            command: 'completed',
+            messageId: $("#message_id").val()
+        }
+        sendMessage(JSON.stringify(data))
+    }
+
+    function sendMessage(message) {
+        console.log("sending message: " + message)
+        webSocket.send(message);
+    }
+
+</script>
+<input id="message_id" type="text">
+</body>
+</html>
