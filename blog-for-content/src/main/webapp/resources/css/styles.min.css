@@ -1,0 +1,59 @@
+.custom-button, .custom-nav-item {
+    cursor: pointer
+}
+
+.borderer-up {
+    border: 1px solid #e1e1e1;
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0
+}
+
+.custom-post-section {
+    border: 1px solid #e1e1e1;
+    border-radius: 10px
+}
+
+.unliked {
+    color: #767676
+}
+
+.liked {
+    color: red;
+    font-weight: 800
+}
+
+.head-panel {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    border-bottom: 1px solid #ffaa6d;
+    background-color: #fff
+}
+
+.custom-button:hover {
+    background-color: #f4c09a
+}
+
+.custom-button:active, .custom-button:active:after {
+    background-color: #fba669
+}
+
+.custom-button {
+    background-color: #fff;
+    color: #000;
+    font-weight: 700;
+    align-items: center;
+    padding: 3px 10px 5px;
+    border: 1px solid #ffaa6d;
+    border-radius: 10px
+}
+
+.header-section {
+    width: 1000px;
+    height: 40px
+}
+
+.col::-webkit-scrollbar {
+    display: none
+}

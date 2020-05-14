@@ -1,9 +1,6 @@
 package ru.naumow.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,10 +20,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Post post;
-
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     private String text;

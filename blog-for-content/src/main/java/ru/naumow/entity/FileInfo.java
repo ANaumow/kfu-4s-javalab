@@ -22,12 +22,10 @@ public class FileInfo {
 
     String storageFilename;
 
-    @Nullable
     String originalFilename;
 
     String contentType;
 
-    @Nullable
     Long size;
 
 }

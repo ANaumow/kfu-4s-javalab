@@ -13,8 +13,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "db_like")
+//@Entity
+//@Table(name = "db_like")
 public class Like {
 
     @EmbeddedId

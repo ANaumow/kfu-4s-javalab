@@ -17,23 +17,29 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>2.2.5.RELEASE</version>
+            <version>2.2.0.RELEASE</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -50,31 +56,62 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.2.2.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-jdbc</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator-annotation-processor</artifactId>
+            <version>6.1.2.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.197</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -90,22 +127,25 @@
             <version>1.18.12</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.23</version>
+            <version>2.3.30</version>
         </dependency>
+
 
         <dependency><!-- needed for freemarker FreeMarkerConfigurer stuff -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.2.4.RELEASE</version>
+            <version>5.2.0.RELEASE</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->

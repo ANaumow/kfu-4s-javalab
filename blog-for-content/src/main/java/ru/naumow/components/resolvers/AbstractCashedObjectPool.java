@@ -3,6 +3,7 @@ package ru.naumow.components.resolvers;
 import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractCashedObjectPool<T> implements CashedObjectPool<T> {

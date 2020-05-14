@@ -1,37 +1,20 @@
 package ru.naumow.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.*;
-import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
-import org.springframework.security.web.header.writers.frameoptions.AllowFromStrategy;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.web.filter.DelegatingFilterProxy;
-import ru.naumow.aspects.TestObjectPostProcessor;
-import ru.naumow.model.UserSessionData;
 import ru.naumow.security.handlers.BlogAliasHandler;
 
-import javax.persistence.EntityManagerFactory;
-import javax.servlet.Filter;
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 @Configuration
@@ -57,9 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-        http.csrf().disable();
+        //http.csrf().disable();
 
-
+        http.csrf().ignoringAntMatchers("/api/**");
 
         http.authorizeRequests()
                 .antMatchers("/sign-up")

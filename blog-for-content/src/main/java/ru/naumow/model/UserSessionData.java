@@ -6,12 +6,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import ru.naumow.entity.User;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-@Component
-@SessionScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+/*@Component
+@SessionScope(proxyMode = ScopedProxyMode.TARGET_CLASS)*/
 @Data
-public class UserSessionData {
+public class UserSessionData implements Serializable {
 
     private User user;
     private String blogAlias;

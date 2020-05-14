@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class UsersRepositoryCustomImpl implements UsersRepositoryCustom {
 
     @PersistenceContext(unitName = "entityManagerFactory")

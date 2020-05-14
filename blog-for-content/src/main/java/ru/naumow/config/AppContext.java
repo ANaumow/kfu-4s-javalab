@@ -3,6 +3,7 @@ package ru.naumow.config;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
+import org.springframework.web.context.annotation.SessionScope;
 import ru.naumow.aspects.TestObjectPostProcessor;
 import ru.naumow.model.UserSessionData;
 
@@ -13,11 +14,19 @@ import ru.naumow.model.UserSessionData;
         @ComponentScan("ru.naumow.entity"),
         @ComponentScan("ru.naumow.model"),
         @ComponentScan("ru.naumow.services"),
-        @ComponentScan("ru.naumow.components")
+        @ComponentScan("ru.naumow.components"),
+        @ComponentScan("ru.naumow.autorun")
 })
 @PropertySources({
         @PropertySource("classpath:blog.properties")
 })
 public class AppContext {
+
+    @Bean
+    @SessionScope
+    public UserSessionData userSessionData() {
+        return new UserSessionData();
+    }
+
 }
 

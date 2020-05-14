@@ -1,9 +1,10 @@
 <#macro out post>
 <#-- @ftlvariable name="post" type="ru.naumow.entity.Post" -->
-    <div id="post-holder-${post.id}" class="custom-post-section"
-         style="margin-top: 15px;background-color: #ffffff;margin-bottom: 15px;padding-bottom: 5px; padding-top: 7px;">
+    <div id="post-holder-${post.id}" class="custom-post-section" style="margin-top: 15px;background-color: #ffffff;margin-bottom: 15px;padding-bottom: 5px; padding-top: 7px;">
         <div id="content-section-${post.id}">
+
         </div>
+
         <div id="action-section" class="d-flex d-sm-flex d-md-flex justify-content-end align-items-center justify-content-sm-end align-items-sm-center justify-content-md-end align-items-md-center borderer-up" style="padding: 2px;">
             <div id="comment-icon"
                  onclick="getComments('comments-section-post-${post.id}', ${post.id})"
@@ -82,6 +83,7 @@
                 }
 
                 $.get("comments", data, function (response) {
+                    console.log(response)
                     $("#" + divId).html(response);
                     getComments(divId, postId, 1)
                 })

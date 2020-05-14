@@ -1,28 +1,45 @@
 package ru.naumow.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.naumow.entity.Blog;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlogDto {
+    @NonNull
     private Long id;
-    private String title;
-    private String alias;
 
-    public static BlogDto from(Blog blog) {
+    @NonNull
+    private String alias;
+    @NonNull
+    private String title;
+    @NonNull
+    private String subTitle;
+
+    private String avatarUrl;
+    private String backgroundUrl;
+
+    @NonNull
+    private List<PostDto> posts;
+
+    private int subCount;
+    private int postCount;
+
+    public static BlogDto from(Blog blog, List<PostDto> posts) {
         return BlogDto.builder()
                 .id(blog.getId())
                 .title(blog.getTitle())
+                .subTitle(blog.getSubTitle())
+                .avatarUrl(blog.getAvatarUrl())
+                .backgroundUrl(blog.getBackgroundUrl())
                 .alias(blog.getAlias())
+                .posts(posts)
+                .postCount(posts.size())
+                .subCount(blog.getSubs().size())
                 .build();
     }
 }

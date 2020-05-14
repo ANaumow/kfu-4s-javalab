@@ -1,5 +1,6 @@
 package ru.naumow.services;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.naumow.components.resolvers.CashedIdPool;
@@ -27,8 +28,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByPostId(Long postId) {
-        List<Comment> commentList = commentRepository.findAllByPostId(postId);
-        return commentList == null ? Collections.emptyList() : commentList;
+        List<Comment> comments = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("not found")).getComments();
+        return comments == null ? Collections.emptyList() : comments;
     }
 
     @Override
@@ -55,12 +56,13 @@ public class CommentServiceImpl implements CommentService {
         LocalDateTime now = timeResolver.now();
 
         Comment comment = Comment.builder()
-                .post(post)
                 .user(user)
                 .text(text)
                 .cratedAt(now)
                 .build();
         commentRepository.save(comment);
+        post.getComments().add(comment);
+        postRepository.save(post);
         advertiseSubmitting(commentForm.getPostId());
     }
 

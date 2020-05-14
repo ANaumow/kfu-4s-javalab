@@ -1,9 +1,6 @@
 package ru.naumow.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,17 +18,22 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Blog blog;
+    private String type;
 
-    @OneToOne
+    @NonNull
+    private Integer level;
+    @OneToOne(fetch = FetchType.EAGER)
     private Content content;
+
+    private LocalDateTime cratedAt;
+
+    @ManyToOne
+    private Blog blog;
 
     @OneToMany
     private List<Comment> comments;
 
-    private Integer level;
-
-    private LocalDateTime cratedAt;
+    @ManyToMany
+    private List<User> likes;
 
 }

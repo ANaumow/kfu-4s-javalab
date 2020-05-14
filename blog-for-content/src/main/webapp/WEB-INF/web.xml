@@ -76,7 +76,8 @@
             ru.naumow.security.config.SecurityConfig,
             ru.naumow.config.JpaConfig,
             ru.naumow.config.AppContext,
-            ru.naumow.config.AspectsConfig
+            ru.naumow.config.AspectsConfig,
+            ru.naumow.config.HttpSessionConfig
         </param-value>
     </context-param>
 

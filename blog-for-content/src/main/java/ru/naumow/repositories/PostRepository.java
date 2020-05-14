@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long>, JpaRepository<Post, Long> {
 
-    List<Post> findByBlog_Id(Long blog_id);
+    List<Post> findByBlogId(Long blog_id);
+
+    long countByBlogId(Long blogId);
+
+    List<Post> findByBlogIdAndLevelIsLessThanEqual(Long blogId, int level);
+
+    void deleteByBlogIdAndType(Long blogId, String type);
 
 }

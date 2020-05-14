@@ -1,12 +1,10 @@
 package ru.naumow.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,10 +18,21 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
     private String alias;
 
+    private String title;
+
+    private String subTitle;
+
+    @OneToOne
+    private User owner;
+
+    @OneToMany
+    private List<Subscription> subs;
+
     private LocalDateTime cratedAt;
+
+    private String avatarUrl;
+    private String backgroundUrl;
 
 }

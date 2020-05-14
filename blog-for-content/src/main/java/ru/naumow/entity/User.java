@@ -1,11 +1,9 @@
 package ru.naumow.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -15,14 +13,11 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "db_user")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    private Blog blog;
 
     private String name;
     private String surname;
@@ -36,9 +31,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
-    @OneToMany(mappedBy = "subId.user", fetch = FetchType.EAGER)
-    private Set<Subscription> subs;
-
     private LocalDateTime createdAt;
+    private String avatarUrl;
 
 }

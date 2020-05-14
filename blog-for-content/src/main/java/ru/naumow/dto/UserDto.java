@@ -1,38 +1,40 @@
 package ru.naumow.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.naumow.entity.Blog;
-import ru.naumow.entity.User;
-import ru.naumow.entity.UserRole;
-import ru.naumow.entity.UserStatus;
+import lombok.*;
+import ru.naumow.entity.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    @NonNull
     private Long       id;
-    private Blog       blog;
+    @NonNull
+    private String     avatarUrl;
+    @NonNull
     private String     name;
+    @NonNull
     private String     surname;
+    @NonNull
     private String     vocation;
-    private String     email;
-    private UserStatus status;
-    private UserRole   role;
 
     public static UserDto from(User user) {
         return UserDto.builder()
                 .id(user.getId())
-                .blog(user.getBlog())
+                .avatarUrl(user.getAvatarUrl())
                 .name(user.getName())
                 .surname(user.getSurname())
                 .vocation(user.getVocation())
-                .email(user.getEmail())
-                .status(user.getStatus())
-                .role(user.getRole())
                 .build();
     }
+
+    public static List<UserDto> from(List<User> users) {
+        return users.stream().map(UserDto::from).collect(Collectors.toList());
+    }
+
+
 }

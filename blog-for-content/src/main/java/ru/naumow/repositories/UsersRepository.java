@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UsersRepository extends CrudRepository<User, Long>, JpaRepository<User, Long>, UsersRepositoryCustom {
+public interface UsersRepository extends CrudRepository<User, Long>, JpaRepository<User, Long>/*, UsersRepositoryCustom*/ {
 
     Optional<User> findByEmail(String email);
 

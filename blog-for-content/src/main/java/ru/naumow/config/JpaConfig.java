@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -17,8 +18,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
+import java.io.File;
+import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
@@ -30,6 +36,7 @@ public class JpaConfig {
     @Autowired
     private Environment env;
 
+
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -40,10 +47,6 @@ public class JpaConfig {
         factory.setDataSource(dataSource());
         factory.setPackagesToScan("ru.naumow.entity");
         factory.setJpaVendorAdapter(vendorAdapter);
-        /*Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");*/
-        //factory.setJpaProperties(properties);
         factory.setJpaProperties(getHibernateProperties());
         factory.afterPropertiesSet();
         factory.setLoadTimeWeaver(new ReflectiveLoadTimeWeaver());
@@ -60,11 +63,16 @@ public class JpaConfig {
         return dataSource;
     }
 
-    @Bean
+    /*@Bean
     public TransactionManager transactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory());
         return transactionManager;
+    }*/
+
+    @Bean
+    public TransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 
     private Properties getHibernateProperties() {

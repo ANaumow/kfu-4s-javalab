@@ -2,20 +2,22 @@ package ru.naumow.services.editor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.naumow.components.generators.FilenameGenerator;
 import ru.naumow.components.resolvers.InputStreamResolver;
+import ru.naumow.components.resolvers.LocalDateTimeResolver;
 import ru.naumow.components.resolvers.StorageFilenameResolver;
 import ru.naumow.dto.SaveFileOrder;
 import ru.naumow.dto.SaveFileResult;
-import ru.naumow.entity.Content;
-import ru.naumow.entity.FileInfo;
-import ru.naumow.entity.Post;
+import ru.naumow.entity.*;
 import ru.naumow.model.UserSessionData;
+import ru.naumow.repositories.BlogRepository;
 import ru.naumow.repositories.ContentRepository;
 import ru.naumow.repositories.PostRepository;
 import ru.naumow.repositories.editor.FileInfoRepository;
 import ru.naumow.repositories.editor.FileStorage;
+import ru.naumow.services.BlogService;
 
 import java.io.InputStream;
 
@@ -25,10 +27,14 @@ public class EditorServiceImpl implements EditorService {
     @Autowired private StorageFilenameResolver storageFilenameResolver;
     @Autowired private FilenameGenerator       filenameGenerator;
 
+    @Autowired private BlogRepository blogRepository;
+
     @Autowired private FileStorage        fileStorage;
     @Autowired private FileInfoRepository fileInfoRepository;
     @Autowired private PostRepository     postRepository;
     @Autowired private ContentRepository  contentRepository;
+
+    @Autowired private LocalDateTimeResolver timeResolver;
 
     @Autowired private UserSessionData userSessionData;
 
@@ -68,16 +74,25 @@ public class EditorServiceImpl implements EditorService {
     }
 
     @Override
-    public void submitPost(String mdText) {
+    @Transactional
+    public void submitPost(String mdText, String blogAlias, User user, String type) {
         FileInfo fileInfo = processMdTextSaving(mdText);
         Content content = Content.builder()
                 .url(storageFilenameResolver.sharedUrl(fileInfo.getStorageFilename()))
                 .build();
         contentRepository.save(content);
+        Blog blog = blogRepository.findByAlias(blogAlias).orElseThrow(() -> new IllegalArgumentException("not found"));
         Post post = Post.builder()
-                .blog(userSessionData.getUser().getBlog())
                 .content(content)
+                .blog(blog)
+                .cratedAt(timeResolver.now())
+                .level(1)
+                .type(type)
                 .build();
+
+        if (!type.equals("s")) {
+            postRepository.deleteByBlogIdAndType(blog.getId(), type);
+        }
         postRepository.save(post);
     }
 
