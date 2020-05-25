@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -27,5 +28,7 @@ public class FileInfo {
     String contentType;
 
     Long size;
+
+    LocalDateTime createdAt;
 
 }

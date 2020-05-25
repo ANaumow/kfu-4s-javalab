@@ -1,13 +1,11 @@
 package ru.naumow.services;
 
-import ru.naumow.dto.UserDto;
-
-import java.util.List;
+import ru.naumow.dto.SubscriptionResponse;
+import ru.naumow.entity.Blog;
+import ru.naumow.entity.User;
 
 public interface SubscriptionService {
 
-    int subLevelFor(Long blogId, Long userId);
-
-    List<UserDto> subsFor(Long blogId);
+    SubscriptionResponse toggleSubscription(User user, Blog blog);
 
 }

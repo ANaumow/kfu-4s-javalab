@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,23 +14,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import ru.naumow.security.handlers.BlogAliasHandler;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan("ru.naumow.security")
+@Profile("mvc")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService service;
 
     @Autowired
-    private BlogAliasHandler successHandler;
+    private DataSource dataSource;
 
     @Autowired
-    private DataSource dataSource;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,15 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/**")
                 .permitAll()
-                /*.anyRequest()
-                .authenticated()*/
+                .anyRequest()
+                .authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage("/sign-in")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .successHandler(successHandler)
                 .failureUrl("/sign-in?error")
                 .defaultSuccessUrl("/profile")
                 .permitAll()
@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(service).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(service).passwordEncoder(passwordEncoder);
     }
 
     @Bean
@@ -95,9 +95,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return jdbcTokenRepository;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }

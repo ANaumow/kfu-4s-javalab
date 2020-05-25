@@ -20,6 +20,8 @@ public class Post {
 
     private String type;
 
+    private boolean active;
+
     @NonNull
     private Integer level;
     @OneToOne(fetch = FetchType.EAGER)

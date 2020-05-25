@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="userDto" type="ru.naumow.dto.UserDto" -->
-<#-- @ftlvariable name="blogDto" type="ru.naumow.dto.BlogDto" -->
+<#-- @ftlvariable name="currentBlog" type="ru.naumow.dto.BlogDto" -->
 <div style="background-color: rgba(255,255,255,0);">
     <div>
         <div>
@@ -9,7 +9,7 @@
                     <div class="col d-xl-flex justify-content-xl-end align-items-xl-start"
                          style="max-width: 113px;">
                         <div class="rounded-circle"
-                             style="background-image: url('${blogDto.avatarUrl}');background-color: rgba(150,106,39,0.6);background-size: cover;background-position: center;background-repeat: no-repeat;height: 75px;width: 75px;"></div>
+                             style="background-image: url('${currentBlog.info.avatarUrl}');background-color: rgba(150,106,39,0.6);background-size: cover;background-position: center;background-repeat: no-repeat;height: 75px;width: 75px;"></div>
                     </div>
                     <div class="col d-xl-flex justify-content-xl-start align-items-xl-center"
                          style="padding: 0;">
@@ -17,14 +17,14 @@
                              style="margin: 0;min-height: 50%;">
                             <div class="col" style="padding: 0;height: 22px;">
                                 <p class="text-left"
-                                   style="font-size: 20px;filter: blur(0px);font-style: normal;font-weight: bold;margin: 0;cursor: pointer;">${blogDto.title}</p>
+                                   style="font-size: 20px;filter: blur(0px);font-style: normal;font-weight: bold;margin: 0;cursor: pointer;">${currentBlog.info.title}</p>
                             </div>
                             <div class="col" style="padding: 0;height: 21px;">
-                                <p style="margin: 0;padding: 0;font-size: 15px;">${blogDto.subTitle}</p>
+                                <p style="margin: 0;padding: 0;font-size: 15px;">${currentBlog.info.subTitle}</p>
                             </div>
                             <div class="col" style="padding: 0;">
-                                <p style="margin: 0;height: 17px;">${blogDto.subCount} подписчиков<br></p>
-                                <p style="margin: 0;">${blogDto.postCount} записей<br></p>
+                                <p style="margin: 0;height: 17px;">${currentBlog.info.subCount} подписчиков<br></p>
+                                <p style="margin: 0;">${currentBlog.postCount} записей<br></p>
                             </div>
                         </div>
                     </div>
@@ -34,14 +34,14 @@
                             <div class="d-sm-flex d-xl-flex align-items-sm-center align-items-xl-center dropdown-toggle"
                                  type="button" data-toggle="dropdown" aria-expanded="true">
                                 <p class="lead"
-                                   style="margin-bottom: 0;margin-left: 3px;margin-right: 3px;font-size: 12px;line-height: 22.5px;">
+                                   style="margin-bottom: 0;margin-left: 3px;margin-right: 3px;font-size: 12px;line-height: 22px;">
                                     <strong>Редактировать</strong></p>
                             </div>
                             <!-- Start: dropdown-profile-menu -->
                             <div class="dropdown-menu" role="menu" style="padding: 0;min-width: auto;">
                                 <div class="dropdown-item custom-nav-item" role="presentation"
                                      style="padding: 2px 14px;"
-                                     onclick="window.location.href='/blog-create'">
+                                     onclick="window.location.href='/blog-edit'">
                                     <p class="lead" style="margin: 0;font-size: 15px; " >Дизайн блога</p>
 
                                 </div>

@@ -9,7 +9,6 @@ import ru.naumow.entity.Blog;
 import ru.naumow.entity.User;
 import ru.naumow.entity.UserRole;
 import ru.naumow.entity.UserStatus;
-import ru.naumow.repositories.BlogRepository;
 import ru.naumow.repositories.UsersRepository;
 
 import javax.persistence.EntityManager;
@@ -17,12 +16,14 @@ import java.util.UUID;
 
 @Service
 public class SignUpServiceImpl implements SignUpService {
-    @Autowired private UsersRepository usersRepository;
-    @Autowired private BlogRepository  blogRepository;
-    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UsersRepository usersRepository;
 
-    @Autowired private LocalDateTimeResolver timeResolver;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private LocalDateTimeResolver timeResolver;
 
     @Override
     public void signUp(SignUpDto form) {
@@ -35,12 +36,6 @@ public class SignUpServiceImpl implements SignUpService {
         }
 
         String encodedPassword = passwordEncoder.encode(password);
-
-        Blog blog = Blog.builder()
-                .alias(form.getBlogAlias())
-                .title("")
-                .build();
-        blogRepository.save(blog);
 
         String confirmId = UUID.randomUUID().toString();
         User user = User.builder()

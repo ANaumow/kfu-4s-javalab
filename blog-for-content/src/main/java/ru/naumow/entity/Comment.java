@@ -13,9 +13,6 @@ import java.time.LocalDateTime;
 @Table(name = "comment")
 public class Comment {
 
-    /*@EmbeddedId
-    private UserPostId id;*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

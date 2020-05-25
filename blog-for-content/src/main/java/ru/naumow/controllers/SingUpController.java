@@ -1,6 +1,7 @@
 package ru.naumow.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +12,19 @@ import ru.naumow.dto.SignUpDto;
 import ru.naumow.services.SignUpService;
 
 @Controller
-@RequestMapping("sign-up")
+@Profile("mvc")
 public class SingUpController {
-    @Autowired private SignUpService signUpService;
 
-    @GetMapping
-    public ModelAndView getSignUp() {
-        return new ModelAndView("sign_up");
+    @Autowired
+    private SignUpService signUpService;
+
+    @GetMapping("/sign-up")
+    public String getSignUp() {
+        return "sign_up";
     }
 
     @PreAuthorize("permitAll()")
-    @PostMapping
+    @PostMapping("/sign-up")
     public String signUp(SignUpDto signUpDto) {
         signUpService.signUp(signUpDto);
         return "redirect:sign-in";

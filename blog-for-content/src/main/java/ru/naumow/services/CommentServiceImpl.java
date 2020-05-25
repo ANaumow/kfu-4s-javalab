@@ -1,17 +1,15 @@
 package ru.naumow.services;
 
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.naumow.components.resolvers.CashedIdPool;
 import ru.naumow.components.resolvers.LocalDateTimeResolver;
-import ru.naumow.dto.CommentForm;
+import ru.naumow.dto.CommentDto;
 import ru.naumow.entity.Comment;
 import ru.naumow.entity.Post;
 import ru.naumow.entity.User;
-import ru.naumow.model.UserSessionData;
 import ru.naumow.repositories.CommentRepository;
-import ru.naumow.repositories.PostRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -19,23 +17,30 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    @Autowired private CommentRepository commentRepository;
-    @Autowired private PostRepository    postRepository;
-    @Autowired private UserSessionData   userSessionData;
 
-    @Autowired private LocalDateTimeResolver timeResolver;
-    @Autowired private CashedIdPool          cashedIdPool;
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private LocalDateTimeResolver timeResolver;
+
+    @Autowired
+    private CashedIdPool          cashedIdPool;
 
     @Override
-    public List<Comment> getCommentsByPostId(Long postId) {
-        List<Comment> comments = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("not found")).getComments();
-        return comments == null ? Collections.emptyList() : comments;
+    public List<CommentDto> commentsByPost(Post post) {
+        List<Comment> comments = post.getComments();//postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("not found")).getComments();
+        if (comments == null) {
+            return Collections.emptyList();
+        } else {
+            return CommentDto.from(comments);
+        }
     }
 
     @Override
-    public List<Comment> getCommentsByPostId(Long postId, boolean wait) {
-        if (wait) {
-            postId = cashedIdPool.cashedOf(postId); // получаю один и тот же объект для всех потоков
+    public List<CommentDto> commentsByPost(Post post, boolean doWait) {
+        if (doWait) {
+            Long postId = cashedIdPool.cashedOf(post.getId()); // получаю один и тот же объект для всех потоков
             synchronized (postId) {
                 try {
                     postId.wait();
@@ -44,17 +49,13 @@ public class CommentServiceImpl implements CommentService {
                 }
             }
         }
-        return getCommentsByPostId(postId);
+        return commentsByPost(post);
     }
 
     @Override
-    public void submitComment(CommentForm commentForm) {
-        Post post = postRepository.findById(commentForm.getPostId())
-                .orElseThrow(IllegalStateException::new);
-        User user = userSessionData.getUser();
-        String text = commentForm.getText();
+    @Transactional
+    public CommentDto submitComment(User user, Post post, String text) {
         LocalDateTime now = timeResolver.now();
-
         Comment comment = Comment.builder()
                 .user(user)
                 .text(text)
@@ -62,8 +63,8 @@ public class CommentServiceImpl implements CommentService {
                 .build();
         commentRepository.save(comment);
         post.getComments().add(comment);
-        postRepository.save(post);
-        advertiseSubmitting(commentForm.getPostId());
+        advertiseSubmitting(post.getId());
+        return CommentDto.from(comment);
     }
 
     private void advertiseSubmitting(Long postId) {
@@ -73,5 +74,7 @@ public class CommentServiceImpl implements CommentService {
             cashedIdPool.dispose(postId); // удаляю объект из кэша
         }
     }
+
+
 
 }

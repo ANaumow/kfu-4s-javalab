@@ -20,10 +20,10 @@
 
 <div>
 
-    <#if blogAlias??>
-        <a href="./${blogAlias}">My Blog</a>
+    <#if blogInfo??>
+        <a href="./${blogInfo.alias}">My Blog</a>
     <#else>
-        <a href="/blog-create">Create blog</a>
+        <a href="/blog-edit">Create blog</a>
     </#if>
 
 </div>

@@ -13,13 +13,9 @@ import java.util.List;
 @Component
 public class LikeServiceImpl implements LikeService {
 
-    @Autowired private PostRepository postRepository;
-
     @Override
-    @Transactional
-    public LikeResponse like(User user, Long postId) {
+    public LikeResponse toggleLike(User user, Post post) {
         boolean isLiked;
-        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("not found"));
         List<User> likes = post.getLikes();
         if (likes.contains(user)) {
             likes.remove(user);
@@ -28,10 +24,10 @@ public class LikeServiceImpl implements LikeService {
             likes.add(user);
             isLiked = true;
         }
-        postRepository.save(post);
         return LikeResponse.builder()
                 .isLiked(isLiked)
                 .likeCount(likes.size())
                 .build();
     }
+
 }

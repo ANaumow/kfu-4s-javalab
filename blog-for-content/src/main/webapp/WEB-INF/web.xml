@@ -72,13 +72,24 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>
-            ru.naumow.security.config.SecurityConfig,
+        <param-value><!--
+            ru.naumow.security.config.SecurityConfig,-->
+            ru.naumow.security.api.config.WebSecurityConfig,
             ru.naumow.config.JpaConfig,
             ru.naumow.config.AppContext,
             ru.naumow.config.AspectsConfig,
             ru.naumow.config.HttpSessionConfig
         </param-value>
+    </context-param>
+
+    <!--<context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>mvc</param-value>
+    </context-param>-->
+
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>api</param-value>
     </context-param>
 
     <listener>

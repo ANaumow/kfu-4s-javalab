@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -13,6 +14,6 @@ public class BlogForm {
     private String alias;
     private String title;
     private String subTitle;
-    private String avatarUrl;
-    private String backgroundUrl;
+    private MultipartFile background;
+    private MultipartFile avatar;
 }

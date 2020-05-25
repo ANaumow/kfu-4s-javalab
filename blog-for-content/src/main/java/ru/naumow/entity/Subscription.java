@@ -12,9 +12,11 @@ import javax.persistence.*;
 @Table(name = "sub")
 public class Subscription {
 
-    @EmbeddedId
-    private SubscriptionId subId;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    private User user;
     private Integer level;
 
 }

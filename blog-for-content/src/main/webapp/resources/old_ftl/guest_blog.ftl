@@ -90,10 +90,10 @@
 
 <#--<div>
     <p>Blog:</p>
-    <p>${blogDto.title}</p>
+    <p>${currentBlog.title}</p>
     <p>Author:</p>
-    <p>${userDto.name} ${userDto.surname}</p>
-    <p>${userDto.vocation}</p>
+    <p>${user.name} ${user.surname}</p>
+    <p>${user.vocation}</p>
 </div>-->
 <#--
 <div>

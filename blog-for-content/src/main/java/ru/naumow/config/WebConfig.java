@@ -1,38 +1,34 @@
 package ru.naumow.config;
 
-import freemarker.cache.*;
-import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
-import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
-import org.springframework.ui.freemarker.SpringTemplateLoader;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import ru.naumow.components.resolvers.annotation.CurrentBlogMethodArgumentResolver;
 
-import javax.servlet.ServletContext;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,9 +38,6 @@ import java.util.List;
 @ComponentScan("ru.naumow.controllers")
 @PropertySource("classpath:blog.properties")
 public class WebConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private ServletContext context;
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -78,6 +71,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(methodArgumentResolver);
+        resolvers.add(new AuthenticationPrincipalArgumentResolver());
     }
 
     @Bean
@@ -105,7 +99,6 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setOrder(0);
         resolver.setExposeSpringMacroHelpers(true);
         resolver.setExposeRequestAttributes(true);
-        //resolver.setCache(true);
         resolver.setPrefix("");
         resolver.setSuffix(".ftl");
         resolver.setContentType("text/html; charset=UTF-8");
@@ -118,49 +111,18 @@ public class WebConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-    /*@Bean
-    public FreeMarkerViewResolver freemarkerViewResolver() {
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setCache(true);
-        resolver.setPrefix("");
-        resolver.setSuffix(".ftl");
-        return resolver;
-    }*/
-
     @Bean
     public FreeMarkerConfigurer freemarkerConfig() {
         FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
         freeMarkerConfigurer.setTemplateLoaderPath("/resources/ftl/");
+        freeMarkerConfigurer.setDefaultEncoding("UTF-8");
         return freeMarkerConfigurer;
     }
 
-    /*@Bean
-    public InternalResourceViewResolver htmlViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setOrder(1);
-        viewResolver.setPrefix("/resources/html/");
-        viewResolver.setSuffix(".html");
-        return viewResolver;
-    }
-
-    @Bean
-    public InternalResourceViewResolver jspViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setOrder(2);
-        viewResolver.setPrefix("/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }*/
-
     @Bean
     public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        //multipartResolver.setMaxUploadSize(500000);
-        return multipartResolver;
+        return new CommonsMultipartResolver();
     }
-
-
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

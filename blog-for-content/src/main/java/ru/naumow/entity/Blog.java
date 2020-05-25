@@ -30,6 +30,9 @@ public class Blog {
     @OneToMany
     private List<Subscription> subs;
 
+    @OneToMany(mappedBy = "blog")
+    private List<Post> posts;
+
     private LocalDateTime cratedAt;
 
     private String avatarUrl;

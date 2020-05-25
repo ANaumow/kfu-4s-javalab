@@ -1,21 +1,26 @@
 package ru.naumow.services;
 
+import ru.naumow.dto.CommentDto;
+import ru.naumow.dto.LikeResponse;
 import ru.naumow.dto.PostDto;
+import ru.naumow.entity.Blog;
+import ru.naumow.entity.Content;
 import ru.naumow.entity.Post;
+import ru.naumow.entity.User;
 
 import java.util.List;
 
 public interface PostService {
 
-    List<Post> getAllByBlogId(Long blogId);
+    List<PostDto> filteredPostsOfBlog(Long blogId, int level);
 
-    Post getById(Long id);
+    List<PostDto> findAll();
 
-    void waitForNew(Long id);
+    List<CommentDto> commentsByPost(Long postId, boolean doWait);
 
-    List<PostDto> postsOf();
+    CommentDto submitComment(User user, Long postId, String text);
 
-    List<PostDto> postsOfLevel(Long blogId, int level);
+    LikeResponse toggleLike(User user, Long postId);
 
 
 

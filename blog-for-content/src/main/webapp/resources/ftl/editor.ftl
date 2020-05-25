@@ -12,19 +12,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/flatly/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Customizable-File-Input-Button/fileinput.css">-->
 
-<#--    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
+    <#--    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
 
-<#--    <script src="https://www.jqueryscript.net/demo/Customizable-File-Input-Button/fileinput.js"></script>-->
+    <#--    <script src="https://www.jqueryscript.net/demo/Customizable-File-Input-Button/fileinput.js"></script>-->
 
 
     <#--<link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>-->
 
-<#--    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>-->
-<#--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>-->
-<#--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
-<#--    <script src="https://plugins.krajee.com/assets/73278038/js/fileinput.js?ver=201909132002"></script>-->
-<#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>-->
-<#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>-->
+    <#--    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>-->
+    <#--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>-->
+    <#--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>-->
+    <#--    <script src="https://plugins.krajee.com/assets/73278038/js/fileinput.js?ver=201909132002"></script>-->
+    <#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>-->
+    <#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>-->
     <#--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.iframe-transport/1.0.1/jquery.iframe-transport.min.js"></script>
@@ -99,7 +99,7 @@
 -->
 
     <#--    <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>-->
-<#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>-->
+    <#--    <script src="https://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>-->
     <style>
         /*.editormd-preview-theme-dark {
             color: #777;
@@ -264,7 +264,6 @@
     $(function () {
 
 
-
         $.get('/editor/start.md', function (md) {
 
             editormd.urls.atLinkBase = "/";
@@ -378,9 +377,12 @@
             let formData = new FormData();
 
             formData.append("editormd_mark_down_text", testEditor.getHTML());
-            formData.append("blogAlias", '${blog_alias}');
+            <#if postId??>
+            formData.append("postId", '${postId}')
+            </#if>
+            <#if type??>
             formData.append("type", '${type}')
-
+            </#if>
 
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
@@ -391,7 +393,6 @@
             });
 
 
-
             $.ajax({
                 processData: false,
                 contentType: false,
@@ -399,7 +400,7 @@
                 url: "/editor/submit",
                 data: formData //{editormd_mark_down_text: testEditor.getHTML()}
             }).done(function (response) {
-                document.location.href = '/${blog_alias}'
+                document.location.href = '/${success_href}'
             }).fail(function () {
                 alert('Error')
             });

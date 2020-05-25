@@ -1,15 +1,17 @@
 package ru.naumow.services;
 
-import ru.naumow.dto.CommentForm;
-import ru.naumow.entity.Comment;
+import ru.naumow.dto.CommentDto;
+import ru.naumow.entity.Post;
+import ru.naumow.entity.User;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<Comment> getCommentsByPostId(Long postId);
+    List<CommentDto> commentsByPost(Post post);
 
-    List<Comment> getCommentsByPostId(Long postId, boolean wait);
+    List<CommentDto> commentsByPost(Post post, boolean doWait);
 
-    void submitComment(CommentForm commentForm);
+    CommentDto submitComment(User user, Post post, String text);
+
 }

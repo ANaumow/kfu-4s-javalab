@@ -2,54 +2,62 @@ package ru.naumow.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.naumow.components.resolvers.CashedIdPool;
+import org.springframework.transaction.annotation.Transactional;
+import ru.naumow.exceptions.PostNotFoundException;
+import ru.naumow.components.resolvers.LocalDateTimeResolver;
+import ru.naumow.dto.CommentDto;
+import ru.naumow.dto.LikeResponse;
 import ru.naumow.dto.PostDto;
 import ru.naumow.entity.Post;
+import ru.naumow.entity.User;
 import ru.naumow.repositories.PostRepository;
 
 import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
-    @Autowired private PostRepository postRepository;
-    @Autowired private CashedIdPool   cashedIdPool;
 
+    @Autowired
+    private LocalDateTimeResolver timeResolver;
 
-    @Override
-    public List<Post> getAllByBlogId(Long blogId) {
-        List<Post> list = postRepository.findByBlogId(blogId);
-        list.sort((o1, o2) -> -o1.getCratedAt().compareTo(o2.getCratedAt()));
+    @Autowired
+    private PostRepository postRepository;
 
-        //list.sort((o1, o2) -> o1.getId() - o2.getId() > 0 ? 1 : -1);
-        return list;
-    }
+    @Autowired
+    private LikeService likeService;
 
-    @Override
-    public Post getById(Long id) {
-        return postRepository.findById(id)
-                .orElseThrow(IllegalStateException::new);
-    }
+    @Autowired
+    private CommentService commentService;
 
     @Override
-    public void waitForNew(Long id) {
-        id = cashedIdPool.cashedOf(id);
-        synchronized (id) {
-            try {
-                id.wait();
-            } catch (InterruptedException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-    }
-
-    @Override
-    public List<PostDto> postsOf() {
-        throw new IllegalStateException("method is not implemented yet");
-    }
-
-    @Override
-    public List<PostDto> postsOfLevel(Long blogId, int level) {
+    public List<PostDto> filteredPostsOfBlog(Long blogId, int level) {
         List<Post> posts = postRepository.findByBlogIdAndLevelIsLessThanEqual(blogId, level);
         return PostDto.from(posts);
     }
+
+    @Override
+    @Transactional
+    public LikeResponse toggleLike(User user, Long postId) {
+        return likeService.toggleLike(user, findPostById(postId));
+    }
+
+    @Override
+    public List<CommentDto> commentsByPost(Long postId, boolean doWait) {
+        return commentService.commentsByPost(findPostById(postId), doWait);
+    }
+
+    @Override
+    public CommentDto submitComment(User user, Long postId, String text) {
+        return commentService.submitComment(user, findPostById(postId), text);
+    }
+
+    @Override
+    public List<PostDto> findAll() {
+        return PostDto.from(postRepository.findAll());
+    }
+
+    private Post findPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
+    }
+
 }

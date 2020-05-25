@@ -4,12 +4,10 @@ public interface StorageFilenameResolver {
 
     String localUrl(String filename);
 
-    String sharedUrl(String filename);
-
-    String asPostResource(String filename);
+    String publicUrl(String filename);
 
     String localPath();
 
-    String sharedPath();
+    String publicPath();
 
 }

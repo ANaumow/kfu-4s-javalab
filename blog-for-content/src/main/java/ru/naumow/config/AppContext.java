@@ -1,21 +1,17 @@
 package ru.naumow.config;
 
 import org.springframework.context.annotation.*;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
-import org.springframework.web.context.annotation.SessionScope;
-import ru.naumow.aspects.TestObjectPostProcessor;
-import ru.naumow.model.UserSessionData;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 
 @ComponentScans({
         @ComponentScan("ru.naumow.repositories"),
         @ComponentScan("ru.naumow.entity"),
-        @ComponentScan("ru.naumow.model"),
         @ComponentScan("ru.naumow.services"),
         @ComponentScan("ru.naumow.components"),
-        @ComponentScan("ru.naumow.autorun")
+        @ComponentScan("ru.naumow.handler")
 })
 @PropertySources({
         @PropertySource("classpath:blog.properties")
@@ -23,10 +19,10 @@ import ru.naumow.model.UserSessionData;
 public class AppContext {
 
     @Bean
-    @SessionScope
-    public UserSessionData userSessionData() {
-        return new UserSessionData();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
 
 }
 

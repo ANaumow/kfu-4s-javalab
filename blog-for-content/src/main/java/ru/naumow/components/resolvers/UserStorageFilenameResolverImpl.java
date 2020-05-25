@@ -3,23 +3,32 @@ package ru.naumow.components.resolvers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import ru.naumow.model.UserSessionData;
+import ru.naumow.exceptions.BlogNotFoundException;
+import ru.naumow.dto.BlogInfo;
+import ru.naumow.entity.User;
+import ru.naumow.services.BlogService;
 
 import javax.annotation.PostConstruct;
 
 @Component
 public class UserStorageFilenameResolverImpl implements StorageFilenameResolver {
 
-    @Autowired private Environment env;
-    @Autowired private UserSessionData userSessionData;
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private BlogService blogService;
+
+    @Autowired
+    private AuthResolver authResolver;
 
     private String localPath;
-    private String sharedPath;
+    private String publicPath;
 
     @PostConstruct
     public void init() {
         localPath = env.getProperty("storage.path.local", "c:/webapp/");
-        sharedPath = env.getProperty("storage.path.shared", "/");
+        publicPath = env.getProperty("storage.path.public", "/");
     }
 
     @Override
@@ -28,27 +37,28 @@ public class UserStorageFilenameResolverImpl implements StorageFilenameResolver 
     }
 
     @Override
-    public String sharedUrl(String filename) {
-        return sharedPath() + blogSubPath() + filename;
-    }
-
-    @Override
-    public String asPostResource(String filename) {
-        return blogSubPath() + filename;
+    public String publicUrl(String filename) {
+        return publicPath() + prefix() + filename;
     }
 
     @Override
     public String localPath() {
-        return localPath + blogSubPath();
+        return localPath + prefix();
     }
 
     @Override
-    public String sharedPath() {
-        return sharedPath;
+    public String publicPath() {
+        return publicPath;
     }
 
-    private String blogSubPath() {
-        return userSessionData.getBlogAlias() + "/";
+    private String prefix() {
+        User user = authResolver.getUser();
+        try {
+            BlogInfo blogInfo = blogService.blogInfoByOwner(user);
+            return blogInfo.getAlias() + "/";
+        } catch (BlogNotFoundException e) {
+            return "user-" + user.getId() + "/";
+        }
     }
 
 }

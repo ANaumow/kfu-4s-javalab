@@ -1,3 +1,5 @@
+<#-- @ftlvariable name="userBlogInfo" type="ru.naumow.dto.BlogInfo" -->
+<#-- @ftlvariable name="user" type="ru.naumow.dto.UserDto" -->
 <div class="shadow-sm d-flex d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center head-panel">
     <div class="row d-md-flex justify-content-md-center align-items-md-center header-section">
         <div class="col d-flex d-sm-flex d-md-flex d-xl-flex align-items-center align-items-sm-center align-items-md-center justify-content-xl-start align-items-xl-center">
@@ -18,15 +20,15 @@
                 <div class="d-sm-flex d-xl-flex align-items-sm-center align-items-xl-center dropdown-toggle"
                      type="button" data-toggle="dropdown" aria-expanded="true">
                     <div class="rounded-circle"
-                         style="background-image: url('${userDto.avatarUrl}');background-color: rgba(150,106,39,0.6);background-size: cover;background-position: bottom;background-repeat: no-repeat;height: 30px;width: 30px;"></div>
+                         style="background-image: url('${user.avatarUrl}');background-color: rgba(150,106,39,0.6);background-size: cover;background-position: bottom;background-repeat: no-repeat;height: 30px;width: 30px;"></div>
                     <p style="margin-bottom: 0;margin-left: 3px;margin-right: 3px;">
-                        <strong>${userDto.name} ${userDto.surname}</strong><br></p>
+                        <strong>${user.name} ${user.surname}</strong><br></p>
                 </div>
                 <!-- Start: dropdown-profile-menu -->
                 <div class="dropdown-menu" role="menu"
                      style="cursor: pointer">
                     <div class="dropdown-item" role="presentation"
-                         onclick="window.location.href = '/${userBlogAlias}'">
+                         onclick="window.location.href = '/${userBlogInfo.alias}'">
                         <p>Мой блог</p>
                     </div>
                     <div class="dropdown-item" role="presentation"

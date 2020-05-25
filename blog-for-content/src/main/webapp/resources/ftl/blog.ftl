@@ -34,7 +34,7 @@
 <!-- End: Header -->
 <div class="d-lg-flex justify-content-lg-center" style="height: 100%;">
     <div class="row d-xl-flex justify-content-xl-center" style="z-index: 1;">
-        <#list blogDto.posts as post>
+        <#list currentBlog.posts as post>
             <#if post.type = "l">
                 <div class="col custom-post-section"
                      style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 19px;width: 244px;margin: 14px;">
@@ -54,9 +54,9 @@
                 <!-- Start: Feed -->
                 <div style="margin-top: 10px;margin-bottom: 10px;">
                     <!-- Start: subscribe-button -->
-                    <#if !isOwner>
+                    <#if currentBlog.owner.id != user.id>
                         <#assign buttonText="Подписаться">
-                        <#assign name="single-button-sub-${blogDto.alias}">
+                        <#assign name="single-button-sub-${currentBlog.info.alias}">
                         <#include "post_button_single.ftl">
                     <#else>
                         <#assign buttonText="Новый пост">
@@ -67,7 +67,7 @@
                     <!-- Start: create_post -->
                     <!-- End: create_post -->
                     <!-- Start: Posts-holder -->
-                    <#assign posts=blogDto.posts>
+                    <#assign posts=currentBlog.posts>
                     <#include "posts.ftl">
                     <!-- End: Posts-holder -->
                 </div>
@@ -77,7 +77,7 @@
         </div>
 
 
-        <#list blogDto.posts as post>
+        <#list currentBlog.posts as post>
             <#if post.type = "r">
                 <div class="col custom-post-section"
                      style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 19px;width: 244px;margin: 14px;">

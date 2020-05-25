@@ -1,5 +1,6 @@
 package ru.naumow.controllers;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,20 +10,13 @@ import ru.naumow.security.details.UserDetailsImpl;
 import javax.annotation.PostConstruct;
 
 @Controller
-@RequestMapping("sign-in")
+@RequestMapping("/sign-in")
+@Profile("mvc")
 public class SingInController {
 
-    @PostConstruct
-    public void f() {
-        System.out.println("Unnamed_blog-for-content_2");
-    }
-
     @GetMapping
-    public String getSingIn() {/*
-        if (authentication != null) {
-            String alias = ((UserDetailsImpl)authentication.getPrincipal()).getUser().getBlog().getAlias();
-            return "redirect:" + alias;
-        }*/
+    public String getSingIn() {
         return "sign_in";
     }
+
 }

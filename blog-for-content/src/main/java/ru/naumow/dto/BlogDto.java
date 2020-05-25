@@ -10,36 +10,19 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BlogDto {
-    @NonNull
-    private Long id;
 
-    @NonNull
-    private String alias;
-    @NonNull
-    private String title;
-    @NonNull
-    private String subTitle;
+    private BlogInfo info;
+    private UserDto owner;
 
-    private String avatarUrl;
-    private String backgroundUrl;
-
-    @NonNull
+    private int           postCount;
     private List<PostDto> posts;
-
-    private int subCount;
-    private int postCount;
 
     public static BlogDto from(Blog blog, List<PostDto> posts) {
         return BlogDto.builder()
-                .id(blog.getId())
-                .title(blog.getTitle())
-                .subTitle(blog.getSubTitle())
-                .avatarUrl(blog.getAvatarUrl())
-                .backgroundUrl(blog.getBackgroundUrl())
-                .alias(blog.getAlias())
-                .posts(posts)
+                .info(BlogInfo.from(blog))
+                .owner(UserDto.from(blog.getOwner()))
                 .postCount(posts.size())
-                .subCount(blog.getSubs().size())
+                .posts(posts)
                 .build();
     }
 }
