@@ -28,22 +28,23 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
+
     @PreAuthorize("authentication.authenticated")
     @GetMapping("/profile")
     public String getProfilePage(@CurrentUser User user, Model model) {
         try {
             BlogInfo blogInfo = blogService.blogInfoByOwner(user);
             model.addAttribute("blogInfo", blogInfo);
-        } catch (BlogNotFoundException ignored) {
-
+            model.addAttribute("user", user);
+        } catch (BlogNotFoundException e) {
+            model.addAttribute("user", user);
         }
-        model.addAttribute("user", user);
         return "profile";
     }
 
     @PostMapping("/profile/avatar")
     @ResponseStatus(HttpStatus.OK)
-    public void saveAvatar(@RequestParam("avatar") MultipartFile file, @CurrentUser User user) {
+    public void saveAvatar(@CurrentUser User user, @RequestParam("avatar") MultipartFile file) {
         userService.setAvatar(file, user);
     }
 

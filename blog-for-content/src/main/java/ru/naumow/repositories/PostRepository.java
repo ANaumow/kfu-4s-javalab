@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.naumow.entity.Blog;
 import ru.naumow.entity.Post;
+import ru.naumow.entity.User;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface PostRepository extends CrudRepository<Post, Long>, JpaRepositor
     List<Post> findByBlogIdAndLevelIsLessThanEqual(Long blogId, int level);
 
     void deleteByBlogIdAndType(Long blogId, String type);
+
+    List<Post> findByBlog(Blog blog);
+
+    List<Post> findAllByLikesContains(User user);
 
 }

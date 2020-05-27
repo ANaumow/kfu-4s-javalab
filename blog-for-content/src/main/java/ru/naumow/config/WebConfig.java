@@ -1,5 +1,6 @@
 package ru.naumow.config;
 
+import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import ru.naumow.components.resolvers.annotation.CurrentBlogMethodArgumentResolver;
 
+import javax.servlet.ServletContext;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -169,5 +172,7 @@ public class WebConfig implements WebMvcConfigurer {
         codesResolver.setMessageCodeFormatter(DefaultMessageCodesResolver.Format.POSTFIX_ERROR_CODE);
         return codesResolver;
     }
+
+
 
 }

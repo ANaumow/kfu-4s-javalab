@@ -17,4 +17,6 @@ public interface UsersRepository extends CrudRepository<User, Long>, JpaReposito
 
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByConfirmationUiid(String confirmationUiid);
+
 }

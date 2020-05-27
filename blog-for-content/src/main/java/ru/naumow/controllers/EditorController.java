@@ -1,6 +1,7 @@
 package ru.naumow.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.naumow.annotation.CurrentUser;
 import ru.naumow.dto.FileDto;
 import ru.naumow.dto.ImageUploadResponse;
+import ru.naumow.dto.PostDto;
 import ru.naumow.entity.User;
 import ru.naumow.services.editor.EditorService;
 
@@ -22,6 +24,7 @@ public class EditorController {
 
     @Autowired
     private EditorService editorService;
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/editor")
@@ -56,7 +59,7 @@ public class EditorController {
             @CurrentUser User user
     ) {
         try {
-            editorService.submitPost(user, mdText, postId, type);
+            PostDto postDto = editorService.submitPost(user, mdText, postId, type);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();

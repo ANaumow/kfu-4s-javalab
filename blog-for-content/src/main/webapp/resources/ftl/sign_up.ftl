@@ -1,3 +1,4 @@
+<#import "spring.ftl" as spring />
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,30 +8,44 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
+
+<h3><#if err??>${err}</#if></h3>
+
+<h1>Sing up</h1>
+<@spring.bind "signUpForm"/>
 <form id="d" method="post">
 
-    <h1>Sing up</h1>
-    <br>
-    Name <input type="name" name="name">
-    <br>
-    <br>
-    Surname <input type="text" name="surname">
-    <br>
-    <br>
-    Description <input type="text" name="vocation">
-    <br>
-    <br>
-    Email <input type="email" name="email">
-    <br>
-    <br>
-    Password <input type="password" name="password">
-    <br>
-    <br>
-    Blog alias <input type="text" name="blogAlias">
-    <br>
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <input type="submit" value="sign up">
+    <br>
+    Name
+    <@spring.formInput "signUpForm.name"/>
+    <@spring.showErrors "<br>"/>
+    <br>
+    <br>
+    Surname
+    <@spring.formInput "signUpForm.surname"/>
+    <@spring.showErrors "<br>"/>
+    <br>
+    <br>
+    Description
+    <@spring.formInput "signUpForm.vocation"/>
+    <@spring.showErrors "<br>"/>
+    <br>
+    <br>
+    Email
+    <@spring.formInput "signUpForm.email"/>
+    <@spring.showErrors "<br>"/>
+    <br>
+    <br>
+    Password
+    <@spring.formInput "signUpForm.password"/>
+    <@spring.showErrors "<br>"/>
+    <br>
+    <br>
+    <input type="button" onclick="trySubmit()" value="js-validation">
+    <input type="submit" value="without-js-validation">
 
+<#--    <button value="sign up" onclick="trySubmit()"></button>-->
 
 </form>
 
@@ -39,7 +54,7 @@
 </button>-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="/resources/js/sign_up_validation.js"></script>
 
 </body>
 </html>

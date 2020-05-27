@@ -21,7 +21,11 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @ComponentScan("ru.naumow.security")
 @Profile("mvc")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class MvcSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public MvcSecurityConfig() {
+        System.out.println("mvc security config");
+    }
 
     @Autowired
     private UserDetailsService service;
@@ -34,21 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*System.out.println("context " + servletContext);
-        OpenEntityManagerInViewFilter filter = new OpenEntityManagerInViewFilter();
-        filter.setServletContext(servletContext);*/
-        //super.configure(http);
-
-
-
-        //http.csrf().disable();
-
-        http.csrf().ignoringAntMatchers("/api/**");
-
         http.authorizeRequests()
                 .antMatchers("/sign-up")
+                .anonymous()
+                .antMatchers("/confirm")
                 .permitAll()
-                .antMatchers("/api/**")
+                .antMatchers("/resources/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -62,10 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/profile")
                 .permitAll()
 
-
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .permitAll()
                 .deleteCookies("remember-me")
 
                 .and()
@@ -76,11 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers()
                 .frameOptions().disable();
-                //.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS", "ALLOW-FROM http://localhost:8080"));
-                //.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.ALLOW_FROM))
-                //.addHeaderWriter(n);
-        //.headers()
-        //.frameOptions().disable();
     }
 
     @Override

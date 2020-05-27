@@ -34,4 +34,6 @@ public class User implements Serializable {
     private LocalDateTime createdAt;
     private String avatarUrl;
 
+    private String confirmationUiid;
+
 }

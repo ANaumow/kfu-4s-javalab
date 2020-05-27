@@ -15,7 +15,8 @@ import ru.naumow.repositories.UsersRepository;
 import java.util.Optional;
 
 @Service
-public class SignInServiceImpl implements SignInService {
+public class
+SignInServiceImpl implements SignInService {
 
     @Autowired
     private UsersRepository usersRepository;

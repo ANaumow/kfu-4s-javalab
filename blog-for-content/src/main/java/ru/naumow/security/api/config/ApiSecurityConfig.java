@@ -22,7 +22,11 @@ import org.springframework.web.filter.GenericFilterBean;
 @Configuration
 @ComponentScan("ru.naumow.security.api")
 @Profile("api")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public ApiSecurityConfig() {
+        System.out.println("api security config");
+    }
 
     @Autowired
     @Qualifier("jwtAuthenticationProvider")
@@ -34,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/signIn");
+        web.ignoring().antMatchers("/sign-in");
     }
 
     @Override

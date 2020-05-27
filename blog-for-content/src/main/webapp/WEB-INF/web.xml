@@ -72,26 +72,27 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value><!--
-            ru.naumow.security.config.SecurityConfig,-->
-            ru.naumow.security.api.config.WebSecurityConfig,
+        <param-value>
+            ru.naumow.security.config.MvcSecurityConfig,
+            ru.naumow.security.api.config.ApiSecurityConfig,
             ru.naumow.config.JpaConfig,
             ru.naumow.config.AppContext,
             ru.naumow.config.AspectsConfig,
-            ru.naumow.config.HttpSessionConfig
+            ru.naumow.config.HttpSessionConfig,
+            ru.naumow.config.StompConfig
         </param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>mvc</param-value>
     </context-param>
 
     <!--<context-param>
         <param-name>spring.profiles.active</param-name>
-        <param-value>mvc</param-value>
-    </context-param>-->
-
-    <context-param>
-        <param-name>spring.profiles.active</param-name>
         <param-value>api</param-value>
     </context-param>
-
+-->
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener

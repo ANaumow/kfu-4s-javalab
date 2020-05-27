@@ -22,7 +22,6 @@ public class Post {
 
     private boolean active;
 
-    @NonNull
     private Integer level;
     @OneToOne(fetch = FetchType.EAGER)
     private Content content;

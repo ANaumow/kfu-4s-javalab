@@ -1,9 +1,12 @@
 package ru.naumow.services.editor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import ru.naumow.dto.PostDto;
+import ru.naumow.events.PostCreatedEvent;
 import ru.naumow.exceptions.BlogNotFoundException;
 import ru.naumow.components.resolvers.LocalDateTimeResolver;
 import ru.naumow.dto.FileDto;
@@ -21,7 +24,7 @@ import ru.naumow.services.FileService;
 public class EditorServiceImpl implements EditorService {
 
     @Autowired
-    private ContentRepository  contentRepository;
+    private ContentRepository contentRepository;
 
     @Autowired
     private BlogRepository blogRepository;
@@ -38,9 +41,12 @@ public class EditorServiceImpl implements EditorService {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
     @Override
     @Transactional
-    public void submitPost(User user, String mdText, Long postId, String type) {
+    public PostDto submitPost(User user, String mdText, Long postId, String type) {
         FileDto fileDto = processMdTextSaving(mdText);
 
         Content content = Content.builder()
@@ -60,6 +66,9 @@ public class EditorServiceImpl implements EditorService {
                 .build();
 
         postRepository.save(post);
+        PostDto dto = PostDto.from(post);
+        eventPublisher.publishEvent(new PostCreatedEvent(this, dto, blog.getAlias()));
+        return dto;
     }
 
     @Override

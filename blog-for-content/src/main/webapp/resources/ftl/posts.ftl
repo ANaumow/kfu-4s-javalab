@@ -1,5 +1,5 @@
 <#-- @ftlvariable name="posts" type="java.util.List<ru.naumow.dto.PostDto>" -->
-<div>
+<div id="posts-section">
     <!-- Start: Post-holder -->
     <#list posts as post>
         <#if post.type = "s">
