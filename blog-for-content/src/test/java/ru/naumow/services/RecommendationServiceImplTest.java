@@ -1,8 +1,6 @@
 package ru.naumow.services;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 import ru.naumow.dto.PostDto;
 import ru.naumow.entity.Post;
 import ru.naumow.entity.User;

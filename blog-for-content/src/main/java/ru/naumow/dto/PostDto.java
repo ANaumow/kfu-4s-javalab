@@ -4,7 +4,6 @@ import lombok.*;
 import ru.naumow.entity.Comment;
 import ru.naumow.entity.Post;
 import ru.naumow.entity.User;
-import ru.naumow.model.UserData;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
