@@ -1,0 +1,22 @@
+GET http://localhost:80/api/stats/6
+Accept: application/json
+
+###
+POST http://localhost:80/api/users/
+
+###
+POST http://localhost:80/api/users/6/contents
+Content-Type: application/x-www-form-urlencoded
+
+body=vid&type=video
+
+###
+POST http://localhost:80/api/users/2/contents
+Content-Type: application/x-www-form-urlencoded
+
+body=vid1&type=video
+
+###
+GET http://localhost:80/api/users/6
+
+###

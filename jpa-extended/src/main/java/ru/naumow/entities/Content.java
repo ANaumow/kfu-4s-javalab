@@ -6,20 +6,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
 @Entity
 @Table(name = "content")
 public class Content {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String body;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     private String type;
+
+    private String body;
+
+    @Column(name = "created_at")
+    private LocalDateTime cratedAt;
+
+    @PrePersist
+    private void prePersist() {
+        cratedAt = LocalDateTime.now();
+    }
 
 }
