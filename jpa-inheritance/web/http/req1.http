@@ -1,0 +1,18 @@
+POST http://localhost:8080/api/students
+Content-Type: application/x-www-form-urlencoded
+
+name=Bob&mark=4
+
+###
+GET http://localhost:8080/api/students/1/
+
+###
+PUT http://localhost:8080/api/students/1/?name=Max&mark=5
+
+###
+DELETE http://localhost:8080/api/students/1
+
+###
+
+POST http://localhost:8080/api/content
+
