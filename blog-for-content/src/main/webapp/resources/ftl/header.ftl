@@ -27,10 +27,12 @@
                 <!-- Start: dropdown-profile-menu -->
                 <div class="dropdown-menu" role="menu"
                      style="cursor: pointer">
+                    <#if userBlogInfo??>
                     <div class="dropdown-item" role="presentation"
                          onclick="window.location.href = '/${userBlogInfo.alias}'">
                         <p>Мой блог</p>
                     </div>
+                    </#if>
                     <div class="dropdown-item" role="presentation"
                          onclick="window.location.href = '/profile'">
                         <p>Мой профиль</p>

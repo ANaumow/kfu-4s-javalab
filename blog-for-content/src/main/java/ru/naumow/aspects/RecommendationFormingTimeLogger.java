@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecommendationFormingTimeLogger {
 
-
     @Around("execution(* ru.naumow.services.RecommendationService+.recommendationsFor(..))")
     private Object log(ProceedingJoinPoint pjp) throws Throwable {
         long start = System.currentTimeMillis();

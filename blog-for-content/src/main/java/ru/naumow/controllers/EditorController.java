@@ -1,7 +1,6 @@
 package ru.naumow.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +15,7 @@ import ru.naumow.dto.FileDto;
 import ru.naumow.dto.ImageUploadResponse;
 import ru.naumow.dto.PostDto;
 import ru.naumow.entity.User;
-import ru.naumow.services.editor.EditorService;
+import ru.naumow.services.EditorService;
 
 @Controller
 @Profile("mvc")

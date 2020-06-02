@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.naumow.annotation.CurrentUser;
-import ru.naumow.annotation.MyAnno;
 import ru.naumow.dto.CommentDto;
 import ru.naumow.dto.LikeResponse;
 import ru.naumow.entity.User;
@@ -29,7 +28,6 @@ public class PostController {
 
     @PostMapping(value = "/like", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @MyAnno
     public LikeResponse like(@RequestParam Long postId, @CurrentUser User user) {
         return postService.toggleLike(user, postId);
     }

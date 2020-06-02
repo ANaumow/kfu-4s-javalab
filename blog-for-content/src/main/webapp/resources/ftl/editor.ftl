@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="ru">
 <head>
     <meta charset="utf-8"/>
     <title>Editor</title>
@@ -264,79 +264,102 @@
     $(function () {
 
 
-        $.get('/editor/start.md', function (md) {
+        /*$.get('/editor/start.md', function (md) {*/
 
-            editormd.urls.atLinkBase = "/";
+        md = "# Это заголовок\n" +
+            "## это залоговок\n" +
+            "###### Еще заголовок\n" +
+            "\n" +
+            "1. Список\n" +
+            "2. второй пункт\n" +
+            "3. третий пункт\n" +
+            "\n" +
+            "\n" +
+            "`текст`\n" +
+            "~~зачеркнуто~~\n" +
+            "*курсив*\n" +
+            "\n" +
+            "```\n" +
+            "\tclass A {\n" +
+            "\t\tpublic String s;\n" +
+            "\t\t\n" +
+            "\t\tpublic void a() {\n" +
+            "\t\t\treturn;\n" +
+            "\t\t}\n" +
+            "\t\t\n" +
+            "\t}\n" +
+            "```"
 
-            testEditor = editormd("test-editormd", {
-                /*lang: "en",*/
-                width: "90%",
-                height: 740,
-                path: '/editor/lib/',
-                /*theme: "dark",
-                previewTheme: "dark",
-                editorTheme: "pastel-on-dark",*/
-                markdown: md,
-                /*crossDomainUpload : true,*/
-                codeFold: true,
-                //syncScrolling : false,
-                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
-                searchReplace: true,
-                //watch : false,                // 关闭实时预览
-                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
-                //toolbar  : false,             //关闭工具栏
-                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-                emoji: true,
-                taskList: true,
-                tocm: true,         // Using [TOCM]
-                tex: true,                   // 开启科学公式TeX语言支持，默认关闭
-                flowChart: true,             // 开启流程图支持，默认关闭
-                sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
-                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-                //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-                imageUpload: true,
-                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL: "/editor/save-image",
-                csrfHeader: "${_csrf.headerName}",
-                csrfToken: "${_csrf.token}",
+        editormd.urls.atLinkBase = "/";
 
-                onload: function () {
-                    console.log('onload', this);
+        testEditor = editormd("test-editormd", {
+            /*lang: "en",*/
+            width: "90%",
+            height: 740,
+            path: '/editor/lib/',
+            /*theme: "dark",
+            previewTheme: "dark",
+            editorTheme: "pastel-on-dark",*/
+            markdown: md,
+            /*crossDomainUpload : true,*/
+            codeFold: true,
+            //syncScrolling : false,
+            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+            searchReplace: true,
+            //watch : false,                // 关闭实时预览
+            htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+            //toolbar  : false,             //关闭工具栏
+            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+            emoji: true,
+            taskList: true,
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/editor/save-image",
+            csrfHeader: "${_csrf.headerName}",
+            csrfToken: "${_csrf.token}",
 
-                    let path = "/editor/languages/";
-                    let value = "en";
+            onload: function () {
+                console.log('onload', this);
 
-                    editormd.loadScript(path + value, function () {
-                        testEditor.lang = editormd.defaults.lang;
+                let path = "/editor/languages/";
+                let value = "en";
 
-                        // 只重建涉及语言包的部分，如工具栏、弹出对话框等
-                        testEditor.recreate();
+                editormd.loadScript(path + value, function () {
+                    testEditor.lang = editormd.defaults.lang;
 
-                        // 整个编辑器重建，预览HTML会重新生成，出现闪动
-                        //testEditor = editormd("test-editormd", {
-                        //width: "90%",
-                        //height: 640,
-                        //path : '../lib/'
-                        //});
+                    // 只重建涉及语言包的部分，如工具栏、弹出对话框等
+                    testEditor.recreate();
 
-                        lang = value;
-                        console.log(lang, value, editormd.defaults.lang);
-                    });
+                    // 整个编辑器重建，预览HTML会重新生成，出现闪动
+                    //testEditor = editormd("test-editormd", {
+                    //width: "90%",
+                    //height: 640,
+                    //path : '../lib/'
+                    //});
+
+                    lang = value;
+                    console.log(lang, value, editormd.defaults.lang);
+                });
 
 
-                    //this.fullscreen();
-                    //this.unwatch();
-                    //this.watch().fullscreen();
+                //this.fullscreen();
+                //this.unwatch();
+                //this.watch().fullscreen();
 
-                    //this.setMarkdown("#PHP");
-                    //this.width("100%");
-                    //this.height(480);
-                    //this.resize("100%", 640);
-                }
-            });
+                //this.setMarkdown("#PHP");
+                //this.width("100%");
+                //this.height(480);
+                //this.resize("100%", 640);
+            }
         });
 
         themeSelect("editormd-theme-select", editormd.themes, "theme", function ($this, theme) {

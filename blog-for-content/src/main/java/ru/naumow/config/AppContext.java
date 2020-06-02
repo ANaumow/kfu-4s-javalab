@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.naumow.mail.MailComponent;
-import ru.naumow.mail.PreparedMailComponent;
+import ru.naumow.components.mail.MailComponent;
+import ru.naumow.components.mail.PreparedMailComponent;
 
 import javax.servlet.ServletContext;
 import java.util.Properties;

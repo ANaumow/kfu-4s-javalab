@@ -14,7 +14,6 @@ import ru.naumow.dto.BlogForm;
 import ru.naumow.dto.BlogInfo;
 import ru.naumow.dto.UserDto;
 import ru.naumow.entity.User;
-import ru.naumow.model.BlogStatisticsData;
 import ru.naumow.services.BlogService;
 
 @Controller
@@ -24,18 +23,17 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @Autowired
-    private BlogStatisticsData blogStatisticsData;
-
     @GetMapping("/{blog-alias}")
     public String get(@CurrentUser User user, @PathVariable("blog-alias") String blogAlias, Model model) {
         BlogDto preparedBlog = blogService.blogForUserView(blogAlias, user);
-        BlogInfo userBlogInfo = blogService.blogInfoByOwner(user);
         UserDto userDto = UserDto.from(user);
-        this.blogStatisticsData.onVisit(blogAlias);
         model.addAttribute("currentBlog", preparedBlog);
-        model.addAttribute("userBlogInfo", userBlogInfo);
         model.addAttribute("user", userDto);
+        try {
+            BlogInfo userBlogInfo = blogService.blogInfoByOwner(user);
+            model.addAttribute("userBlogInfo", userBlogInfo);
+        } catch (BlogNotFoundException ignored) {
+        }
         return "blog";
     }
 

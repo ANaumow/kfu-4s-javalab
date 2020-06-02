@@ -1,7 +1,11 @@
 package ru.naumow.components.resolvers;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import ru.naumow.exceptions.BlogNotFoundException;
 import ru.naumow.dto.BlogInfo;
@@ -23,12 +27,17 @@ public class UserStorageFilenameResolverImpl implements StorageFilenameResolver 
     private AuthResolver authResolver;
 
     private String localPath;
+
+    @Value("${storage.path.public}")
     private String publicPath;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @PostConstruct
+    @SneakyThrows
     public void init() {
-        localPath = env.getProperty("storage.path.local", "c:/webapp/");
-        publicPath = env.getProperty("storage.path.public", "/");
+        localPath = resourceLoader.getResource(env.getProperty("storage.path.local")).getFile().getAbsolutePath() + "/";
     }
 
     @Override

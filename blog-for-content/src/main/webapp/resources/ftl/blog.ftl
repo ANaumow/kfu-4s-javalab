@@ -37,8 +37,8 @@
         <#list currentBlog.posts as post>
             <#if post.type = "l">
                 <div class="col custom-post-section"
-                     style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 19px;width: 244px;margin: 14px;">
-                    <div id="content-section-${post.id}" content-url="${post.contentUrl}">
+                     style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 0px;width: 244px;margin: 14px;">
+                    <div id="content-section-${post.id}" content-url="${post.contentUrl}" style="padding: 10px;">
                     </div>
                     <#--            <#include "content.ftl">-->
                 </div>
@@ -80,8 +80,8 @@
         <#list currentBlog.posts as post>
             <#if post.type = "r">
                 <div class="col custom-post-section"
-                     style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 19px;width: 244px;margin: 14px;">
-                    <div id="content-section-${post.id}" content-url="${post.contentUrl}">
+                     style="position: sticky;top: 54px;overflow-y: scroll;height: calc(100vh - 68px);background-color: #ffffff;z-index: 5;padding: 0px;width: 244px;margin: 14px;">
+                    <div id="content-section-${post.id}" content-url="${post.contentUrl}" style="padding: 10px;">
                     </div>
                 </div>
                 <#break>

@@ -1,6 +1,7 @@
 package ru.naumow.components.generators;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -9,21 +10,19 @@ import javax.annotation.PostConstruct;
 @Component
 public class FilenameGeneratorImpl implements FilenameGenerator {
 
-    @Autowired
-    private Environment env;
+    private final IdGenerator idGenerator;
 
-    private IdGenerator idGenerator;
+    @Value("${storage.filename.prefix}")
     private String prefix;
+    @Value("${storage.filename.separator}")
     private String separator;
 
-    public FilenameGeneratorImpl(@Autowired(required = false) IdGenerator idGenerator) {
-        this.idGenerator = idGenerator == null? new IdGeneratorImpl() : idGenerator;
+    public FilenameGeneratorImpl() {
+        this.idGenerator = new IdGeneratorImpl();
     }
 
-    @PostConstruct
-    public void init() {
-        prefix = env.getProperty("storage.filename.prefix", "");
-        separator = env.getProperty("storage.filename.separator", "");
+    public FilenameGeneratorImpl(@Autowired(required = false) IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 
     @Override

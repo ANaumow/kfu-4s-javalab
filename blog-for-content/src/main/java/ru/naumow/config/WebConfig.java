@@ -1,6 +1,5 @@
 package ru.naumow.config;
 
-import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -10,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
 import org.springframework.validation.DefaultMessageCodesResolver;
@@ -30,8 +30,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import ru.naumow.components.resolvers.annotation.CurrentBlogMethodArgumentResolver;
 
-import javax.servlet.ServletContext;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,6 +52,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private CurrentBlogMethodArgumentResolver methodArgumentResolver;
 
+    @Autowired
+    private Environment env;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.setOrder(Integer.MAX_VALUE);
@@ -62,7 +63,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("/");
 
         registry.addResourceHandler("/**")
-                .addResourceLocations("file:///C:/Soft/apache-tomcat-9.0.26/res/uploads/");
+                .addResourceLocations(env.getProperty("storage.path.local"));
 
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/");
@@ -106,7 +107,6 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".ftl");
         resolver.setContentType("text/html; charset=UTF-8");
 
-
         resolver.setExposeRequestAttributes(true);
         resolver.setExposeSpringMacroHelpers(true);
         resolver.setAllowRequestOverride(true);
@@ -141,9 +141,6 @@ public class WebConfig implements WebMvcConfigurer {
         return cookieLocaleResolver;
     }
 
-    // перехватчик настроек языка
-    // то есть если на сервер пришел запрос localhost:8080/login?lang=ru или ?lang=en, то этот перехватчик
-    // установит куку с нужным значением
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -157,7 +154,7 @@ public class WebConfig implements WebMvcConfigurer {
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
-    // откуда читать ключи с языками
+
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -172,7 +169,5 @@ public class WebConfig implements WebMvcConfigurer {
         codesResolver.setMessageCodeFormatter(DefaultMessageCodesResolver.Format.POSTFIX_ERROR_CODE);
         return codesResolver;
     }
-
-
 
 }

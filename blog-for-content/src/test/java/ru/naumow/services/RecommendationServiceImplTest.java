@@ -5,6 +5,7 @@ import ru.naumow.dto.PostDto;
 import ru.naumow.entity.Post;
 import ru.naumow.entity.User;
 import ru.naumow.repositories.PostRepository;
+import ru.naumow.services.impl.RecommendationServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;

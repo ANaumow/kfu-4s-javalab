@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PostRequestCounter {
 
-
-
     @Before("execution(* ru.naumow.services.*.*(..))")
     public void count() {
         System.out.println("Service method is executed");

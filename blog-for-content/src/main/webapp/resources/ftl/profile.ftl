@@ -7,9 +7,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="/resources/css/styles.min.css">
     <title>Profile</title>
 </head>
-<body>
+<body style="background-color: rgb(244,242,239); text-align: center">
+
+<#include "header_light.ftl">
 
 <div>
     <p>${user.name} ${user.surname}</p>
@@ -72,12 +79,12 @@
     }
 </script>
 
-<div>
+<#--<div>
     <input type="file" id="file" name="file" placeholder="Имя файла..."/>
     <button onclick="sendFile()">
         Загрузить файл
     </button>
-</div>
+</div>-->
 
 
 
@@ -90,6 +97,11 @@
         <p>post</p>
     </div>
 </div>-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+<script src="/resources/js/script.min.js"></script>
 
 </body>
 </html>

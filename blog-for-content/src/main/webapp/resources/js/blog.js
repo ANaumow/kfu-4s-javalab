@@ -17,7 +17,8 @@ $(function () {
             blog_alias: $("div[id^=" + startsWith + "]").first().attr("id").substring(startsWith.length)
         }
         $.post("/sub", data).done(function () {
-            alert("subed")
+            alert("subed");
+            window.location.reload(true);
         })
     })
 

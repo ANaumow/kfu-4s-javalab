@@ -14,4 +14,5 @@ public interface CommentService {
 
     CommentDto submitComment(User user, Post post, String text);
 
+    void advertiseSubmitting(Long postId);
 }
