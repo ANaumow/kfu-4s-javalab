@@ -55,13 +55,9 @@
     <@spring.showErrors "<br>"/>
     <br>
     <br>
-    <#--<input type="button" onclick="trySubmit()" value="js-validation">-->
-<#--    <input type="submit" value="without-js-validation">-->
     <input type="submit" value="sign up!">
     <br>
     <a href="/sign-in">Login</a>
-
-<#--    <button value="sign up" onclick="trySubmit()"></button>-->
 
 </form>
 

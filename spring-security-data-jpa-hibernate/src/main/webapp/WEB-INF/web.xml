@@ -9,7 +9,6 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 
-<!--        сделал не через dispatcher.xml, если что через dispatcher.xml умею делать-->
 
         <init-param>
             <param-name>contextClass</param-name>

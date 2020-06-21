@@ -21,7 +21,7 @@ import java.util.concurrent.locks.Lock;
 @Profile("stompful")
 public class JlmqStompfulController {
     @Autowired private SimpMessagingTemplate template;
-    @Autowired private JlmqService jlmqService;
+    @Autowired private JlmqService           jlmqService;
 
     private static final Object lock = new Object();
 
@@ -33,9 +33,7 @@ public class JlmqStompfulController {
     ) {
         System.out.println(messageDto.getCommand());
 
-        synchronized (lock) {
-            jlmqService.processMessage(messageDto, username, sessionID);
-        }
+        jlmqService.processMessage(messageDto, username, sessionID);
 
     }
 
@@ -49,6 +47,7 @@ public class JlmqStompfulController {
                 messageDto,
                 HeadersUtil.createHeaders(targetConsumer.getSessionId())
         );
+        System.out.println(messageDto.getCommand() + "was sent");
         jlmqService.receiveMessageSentFor(targetConsumer);
     }
 

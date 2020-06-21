@@ -25,6 +25,7 @@ public class UsernameMethodArgumentResolver implements HandlerMethodArgumentReso
     public Object resolveArgument(MethodParameter parameter, Message<?> message) throws Exception {
         MessageHeaders headers = message.getHeaders();
         Principal principal = SimpMessageHeaderAccessor.getUser(headers);
+
         if (principal != null) {
             return (principal instanceof DestinationUserNameProvider ?
                     ((DestinationUserNameProvider) principal).getDestinationUserName() : principal.getName());

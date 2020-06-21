@@ -28,7 +28,7 @@ public class Advice {
     private void handleIdleConsumers() {
         List<ConsumerDto> idleConsumers = jlmqService.getIdleConsumers();
         idleConsumers.forEach(consumerDto -> {
-            if (jlmqService.isPresentAwaitingMessageFor(consumerDto)) {
+            if (jlmqService.isJobPresentFor(consumerDto)) {
                 IdleConsumerJobFoundEvent event = new IdleConsumerJobFoundEvent(this, consumerDto);
                 applicationEventPublisher.publishEvent(event);
             }

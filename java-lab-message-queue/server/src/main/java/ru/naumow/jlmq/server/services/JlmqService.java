@@ -13,7 +13,7 @@ public interface JlmqService {
 
     List<JlmqMessageDto> getAwaitingMessages();
 
-    boolean isPresentAwaitingMessageFor(ConsumerDto consumerDto);
+    boolean isJobPresentFor(ConsumerDto consumerDto);
 
     JlmqMessageDto makeReceiveMessageFor(ConsumerDto consumerDto);
 

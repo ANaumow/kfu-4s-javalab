@@ -15,7 +15,7 @@
         var webSocket;
         function connect() {
             // webSocket = new WebSocket('ws://localhost:8080/chat');
-            webSocket = new SockJS("http://localhost:8080/chat?r=${room.id}");
+            webSocket = new SockJS("http://localhost:8080/chat?room=${room.id}");
             //document.cookie = 'ROOM=' + '${room.id}' + ';path=/';
 
             webSocket.onmessage = function receiveMessage(response) {

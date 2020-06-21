@@ -20,7 +20,11 @@ public class FilesController {
     private FileInfoService fileInfoService;
 
     @RequestMapping(value = "/files", method = RequestMethod.POST)
-    public ModelAndView uploadFileView(@RequestParam("file") MultipartFile multipartFile, HttpSession session) {
+    public ModelAndView uploadFileView(
+            @RequestParam("file") MultipartFile multipartFile,
+            @RequestParam("token_header") String s,
+            HttpSession session
+    ) {
         String email = (String) session.getAttribute("user-email");
         System.out.println("email from current session: " + email);
 

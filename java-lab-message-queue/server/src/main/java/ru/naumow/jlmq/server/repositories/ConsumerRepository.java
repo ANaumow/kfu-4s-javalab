@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.naumow.jlmq.server.entity.Consumer;
 import ru.naumow.jlmq.server.entity.ConsumerState;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,5 +15,6 @@ public interface ConsumerRepository extends JpaRepository<Consumer, Long> {
     Optional<Consumer> findByUsername(String username);
 
     List<Consumer> findByState(ConsumerState state);
+
 
 }

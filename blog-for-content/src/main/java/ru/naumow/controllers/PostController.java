@@ -45,7 +45,8 @@ public class PostController {
     }
 
     @PostMapping("/comments")
-    public ResponseEntity<?> submitComment(@CurrentUser User user, Long postId, String text) {
+    public ResponseEntity<?> submitComment(
+            @CurrentUser User user, Long postId, String text) {
         try {
             postService.submitComment(user, postId, text);
             return ResponseEntity.ok().build();

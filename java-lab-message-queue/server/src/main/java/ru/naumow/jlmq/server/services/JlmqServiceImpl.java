@@ -1,15 +1,14 @@
 package ru.naumow.jlmq.server.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import ru.naumow.jlmq.server.components.resolvers.LocalDateTimeResolver;
-import ru.naumow.jlmq.server.entity.*;
+import org.springframework.transaction.annotation.Transactional;
 import ru.naumow.jlmq.server.annotation.QueueStateChanges;
 import ru.naumow.jlmq.server.components.generators.UuidGenerator;
+import ru.naumow.jlmq.server.components.resolvers.LocalDateTimeResolver;
 import ru.naumow.jlmq.server.dto.ConsumerDto;
 import ru.naumow.jlmq.server.dto.JlmqMessageDto;
-import ru.naumow.jlmq.server.events.IdleConsumerJobFoundEvent;
+import ru.naumow.jlmq.server.entity.*;
 import ru.naumow.jlmq.server.repositories.ConsumerRepository;
 import ru.naumow.jlmq.server.repositories.MessageRepository;
 import ru.naumow.jlmq.server.repositories.QueueRepository;
@@ -28,6 +27,7 @@ public class JlmqServiceImpl implements JlmqService {
 
     @QueueStateChanges
     @Override
+    @Transactional
     public void processMessage(JlmqMessageDto messageDto, String username, String sessionId) {
         JlmqMessageDto.JlmqCommand command = messageDto.getCommand();
         switch (command) {
@@ -61,7 +61,7 @@ public class JlmqServiceImpl implements JlmqService {
     }
 
     @Override
-    public boolean isPresentAwaitingMessageFor(ConsumerDto consumerDto) {
+    public boolean isJobPresentFor(ConsumerDto consumerDto) {
         String consumerQueueName = consumerDto.getQueueName();
         List<JlmqMessageDto> awaitingMessages = getAwaitingMessages();
         for (JlmqMessageDto awaitingMessage : awaitingMessages) {
@@ -87,6 +87,7 @@ public class JlmqServiceImpl implements JlmqService {
     }
 
     @QueueStateChanges
+    @Transactional
     @Override
     public void receiveMessageSentFor(ConsumerDto consumerDto) {
         Consumer consumer = consumerRepository.findByUsername(consumerDto.getUsername()).orElseThrow();

@@ -19,4 +19,5 @@ public class AwaitingMessageFoundEvent extends ApplicationEvent {
         super(source);
         this.message = message;
     }
+
 }
