@@ -17,7 +17,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.9</version>
+            <version>42.2.25</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.9</version>
+            <version>42.2.25</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.10</version>
+            <version>42.2.25</version>
         </dependency>
 
     </dependencies>
